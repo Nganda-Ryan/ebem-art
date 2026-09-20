@@ -25,7 +25,7 @@ export function Explorer() {
     <section
       id="explorer"
       ref={ref}
-      className="overflow-x-clip py-10 md:py-14"
+      className="py-10 md:py-14"
       style={{ background: COLORS.bgAlt, borderTop: `1px solid ${COLORS.border}` }}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
@@ -58,7 +58,8 @@ export function Explorer() {
             <div className="text-sm">Ajustez vos filtres pour explorer davantage.</div>
           </div>
         ) : (
-          <div className="reveal reveal-delay-2 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+          // Grid must stay outside `.reveal` — a parent `transform` flattens 3D tilt.
+          <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
             {filtered.map((work) => (
               <WorkCard key={work.id} work={work} />
             ))}

@@ -168,6 +168,17 @@ h4 {
   }
 }
 
+@keyframes connexion-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes slideLeft {
   from {
     transform: translateX(0);
@@ -187,7 +198,7 @@ h4 {
 
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .reveal-delay-1 {

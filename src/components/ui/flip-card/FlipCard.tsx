@@ -194,27 +194,17 @@ export function FlipCard({
     resetTilt();
   };
 
-  /** Outer face: shadow + 3D (no overflow - avoids clipped black rims). */
+  /** Outer face — solid fill so no static plate shows behind the image. */
   const faceShellStyle: CSSProperties = {
     position: "absolute",
     inset: 0,
     borderRadius: radius,
-    background: "transparent",
+    background,
     backfaceVisibility: "hidden",
     WebkitBackfaceVisibility: "hidden",
-    transform: "translateZ(1px)",
-    boxShadow: shadow
-      ? `0 18px 40px ${withAlpha(shadowColor, shadowOpacity)}`
-      : undefined,
-  };
-
-  /** Inner clip: rounds the painted content only. */
-  const faceClipStyle: CSSProperties = {
-    position: "absolute",
-    inset: 0,
+    transform: "translateZ(0.1px)",
+    WebkitTransform: "translateZ(0.1px)",
     overflow: "hidden",
-    borderRadius: radius,
-    background: "transparent",
   };
 
   const renderGlare = () =>
@@ -261,6 +251,9 @@ export function FlipCard({
         cursor: flipOnClick || draggable ? "pointer" : undefined,
         outline: "none",
         background: "transparent",
+        borderRadius: radius,
+        // Allow tilt/shadow to escape the cell without a static clip frame.
+        overflow: "visible",
         ...style,
       }}
     >
@@ -270,32 +263,36 @@ export function FlipCard({
           width: "100%",
           height: "100%",
           transformStyle: "preserve-3d",
+          transformOrigin: "center center",
           background: "transparent",
+          borderRadius: radius,
           rotateX: tilt || axis === "x" ? rotateX : 0,
           rotateY: tilt || axis === "y" ? rotateY : 0,
           scale,
+          boxShadow: shadow
+            ? `0 18px 40px ${withAlpha(shadowColor, shadowOpacity)}`
+            : undefined,
         }}
       >
         <div style={faceShellStyle}>
-          <div style={faceClipStyle}>
-            {front}
-            {renderGlare()}
-          </div>
+          {front}
+          {renderGlare()}
         </div>
         <div
           style={{
             ...faceShellStyle,
-            background,
             transform:
               axis === "y"
-                ? "rotateY(180deg) translateZ(1px)"
-                : "rotateX(180deg) translateZ(1px)",
+                ? "rotateY(180deg) translateZ(0.1px)"
+                : "rotateX(180deg) translateZ(0.1px)",
+            WebkitTransform:
+              axis === "y"
+                ? "rotateY(180deg) translateZ(0.1px)"
+                : "rotateX(180deg) translateZ(0.1px)",
           }}
         >
-          <div style={{ ...faceClipStyle, color }}>
-            {back}
-            {renderGlare()}
-          </div>
+          <div style={{ color, height: "100%" }}>{back}</div>
+          {renderGlare()}
         </div>
       </motion.div>
     </div>

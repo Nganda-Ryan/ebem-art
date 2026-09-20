@@ -8,11 +8,8 @@ import { authClient } from "@/lib/auth-client";
 type Espace = "artiste" | "admin";
 type Mode = "login" | "signup";
 
-const INPUT_STYLE = {
-  background: COLORS.bgCard,
-  border: `1px solid ${COLORS.border}`,
-  color: COLORS.ink,
-};
+const inputClassName =
+  "w-full border px-4 py-3.5 text-[0.9375rem] outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-mboa-muted focus:border-mboa-terra focus:shadow-[0_0_0_3px_rgba(197,92,46,0.18)]";
 
 function safePath(path: string | null, fallback: string) {
   if (path && path.startsWith("/") && !path.startsWith("//")) return path;
@@ -30,10 +27,12 @@ export function ConnexionPortal() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const next = searchParams.get("espace") === "admin" ? "admin" : "artiste";
     setEspace(next);
+    if (next === "admin") setMode("login");
   }, [searchParams]);
 
   function switchEspace(next: Espace) {
@@ -41,10 +40,17 @@ export function ConnexionPortal() {
     setMode("login");
     setError(null);
     setInfo(null);
+    setShowPassword(false);
     const url = new URL(window.location.href);
     if (next === "admin") url.searchParams.set("espace", "admin");
     else url.searchParams.delete("espace");
     window.history.replaceState(null, "", url.pathname + url.search);
+  }
+
+  function switchMode(next: Mode) {
+    setMode(next);
+    setError(null);
+    setInfo(null);
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -86,7 +92,7 @@ export function ConnexionPortal() {
         setLoading(false);
         setMode("login");
         setInfo(
-          "Compte créé. Un administrateur doit activer vos droits admin avant l’accès au tableau de bord. Vous pourrez ensuite vous connecter ici."
+          "Compte créé. Un administrateur doit activer vos droits avant l’accès au tableau de bord."
         );
         await authClient.signOut();
         return;
@@ -95,7 +101,7 @@ export function ConnexionPortal() {
       if (role !== "admin") {
         setLoading(false);
         setError(
-          "Ce compte n’a pas les droits administrateur. Choisissez l’espace Artiste, ou demandez l’activation de votre compte admin."
+          "Ce compte n’a pas les droits administrateur. Revenez à l’espace artiste, ou demandez l’activation admin."
         );
         await authClient.signOut();
         return;
@@ -107,155 +113,129 @@ export function ConnexionPortal() {
       return;
     }
 
-    // Artiste
-    if (role === "admin" && mode === "login") {
-      // Admins can open admin space; keep session and send to artist area only if intended
-    }
-
     const dest = safePath(searchParams.get("callbackUrl"), "/artiste/oeuvres");
-    router.push(dest.startsWith("/artiste") || dest === "/inscription" ? dest : "/artiste/oeuvres");
+    router.push(
+      dest.startsWith("/artiste") || dest === "/inscription"
+        ? dest
+        : "/artiste/oeuvres"
+    );
     router.refresh();
   }
 
+  const isAdmin = espace === "admin";
+  const isSignup = mode === "signup";
+
   return (
-    <div
-      className="w-full rounded-lg p-6 md:p-8"
-      style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
-    >
-      {/* Espace: Artiste / Admin */}
+    <div className="w-full">
       <div
-        className="mb-6 grid grid-cols-2 gap-1 rounded-md p-1"
-        style={{ background: COLORS.bgCard, border: `1px solid ${COLORS.border}` }}
+        key={`${espace}-${mode}`}
+        className="animate-[connexion-in_0.35s_ease-out]"
       >
-        {(
-          [
-            { id: "artiste", label: "ARTISTE" },
-            { id: "admin", label: "ADMIN" },
-          ] as const
-        ).map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => switchEspace(item.id)}
-            className="px-4 py-2.5 font-mono text-xs tracking-widest transition-colors"
-            style={{
-              background: espace === item.id ? COLORS.terra : "transparent",
-              color: espace === item.id ? "#FFFFFF" : COLORS.muted,
-            }}
-          >
-            {item.label}
-          </button>
-        ))}
+        <p
+          className="font-mono text-[11px] tracking-[0.22em]"
+          style={{ color: COLORS.terra }}
+        >
+          {isAdmin ? "ADMINISTRATION" : "ESPACE ARTISTE"}
+        </p>
+        <h2
+          className="mt-3 font-serif text-3xl leading-tight md:text-4xl"
+          style={{ color: COLORS.ink }}
+        >
+          {isSignup
+            ? isAdmin
+              ? "Créer un compte"
+              : "Créer votre compte"
+            : "Bon retour"}
+        </h2>
+        <p
+          className="mt-3 max-w-[36ch] text-sm leading-relaxed"
+          style={{ color: COLORS.muted }}
+        >
+          {isAdmin
+            ? isSignup
+              ? "L’accès au tableau de bord sera activé par un administrateur existant."
+              : "Connectez-vous pour gérer la plateforme Mboa Arts."
+            : isSignup
+              ? "Utilisez l’email déclaré dans votre demande d’inscription pour être rattaché à votre profil."
+              : "Gérez vos œuvres, vos demandes et votre profil."}
+        </p>
       </div>
 
-      <p className="mb-6 text-sm leading-relaxed" style={{ color: COLORS.muted }}>
-        {espace === "artiste"
-          ? "Gérez vos œuvres et votre profil artiste."
-          : "Accédez au tableau de bord d’administration Mboa Arts."}
-      </p>
-
-      {/* Mode: Connexion / Inscription */}
-      <div
-        className="mb-8 grid grid-cols-2 gap-1 rounded-md p-1"
-        style={{ background: COLORS.bgCard, border: `1px solid ${COLORS.border}` }}
-      >
-        {(
-          [
-            { id: "login", label: "CONNEXION" },
-            { id: "signup", label: "INSCRIPTION" },
-          ] as const
-        ).map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => {
-              setMode(item.id);
-              setError(null);
-              setInfo(null);
-            }}
-            className="px-4 py-2 font-mono text-xs tracking-widest transition-colors"
-            style={{
-              background: mode === item.id ? COLORS.ink : "transparent",
-              color: mode === item.id ? "#FFFFFF" : COLORS.muted,
-            }}
+      <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
+        {isSignup ? (
+          <Field
+            label={isAdmin ? "Nom" : "Nom / nom d’artiste"}
+            htmlFor="connexion-name"
           >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        {mode === "signup" ? (
-          <div>
-            <label
-              className="mb-2 block font-mono text-xs tracking-widest"
-              style={{ color: COLORS.muted }}
-            >
-              {espace === "artiste" ? "NOM / NOM D'ARTISTE" : "NOM"}
-            </label>
             <input
+              id="connexion-name"
               name="name"
               type="text"
               required
-              placeholder={
-                espace === "artiste" ? "Ex: Élise Nkemdifor" : "Votre nom"
-              }
-              className="w-full px-4 py-3 text-sm outline-none"
-              style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
+              autoComplete="name"
+              placeholder={isAdmin ? "Votre nom" : "Ex. Élise Nkemdifor"}
+              className={inputClassName}
+              style={{
+                background: COLORS.bgCard,
+                borderColor: COLORS.border,
+                color: COLORS.ink,
+                fontFamily: "var(--sans)",
+              }}
             />
-            {espace === "artiste" ? (
-              <p className="mt-1.5 text-xs" style={{ color: COLORS.muted }}>
-                Utilisez l&apos;email déclaré dans votre demande d&apos;inscription
-                pour être rattaché à votre profil.
-              </p>
-            ) : (
-              <p className="mt-1.5 text-xs" style={{ color: COLORS.muted }}>
-                L&apos;accès admin sera activé par un administrateur existant.
-              </p>
-            )}
-          </div>
+          </Field>
         ) : null}
 
-        <div>
-          <label
-            className="mb-2 block font-mono text-xs tracking-widest"
-            style={{ color: COLORS.muted }}
-          >
-            EMAIL
-          </label>
+        <Field label="Email" htmlFor="connexion-email">
           <input
+            id="connexion-email"
             name="email"
             type="email"
             required
-            placeholder={
-              espace === "artiste" ? "artiste@email.com" : "admin@email.com"
-            }
-            className="w-full px-4 py-3 text-sm outline-none"
-            style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
+            autoComplete="email"
+            placeholder={isAdmin ? "admin@ebem-art.com" : "vous@email.com"}
+            className={inputClassName}
+            style={{
+              background: COLORS.bgCard,
+              borderColor: COLORS.border,
+              color: COLORS.ink,
+              fontFamily: "var(--sans)",
+            }}
           />
-        </div>
+        </Field>
 
-        <div>
-          <label
-            className="mb-2 block font-mono text-xs tracking-widest"
-            style={{ color: COLORS.muted }}
-          >
-            MOT DE PASSE
-          </label>
-          <input
-            name="password"
-            type="password"
-            required
-            minLength={5}
-            placeholder="••••••••"
-            className="w-full px-4 py-3 text-sm outline-none"
-            style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
-          />
-        </div>
+        <Field label="Mot de passe" htmlFor="connexion-password">
+          <div className="relative">
+            <input
+              id="connexion-password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              required
+              minLength={5}
+              autoComplete={isSignup ? "new-password" : "current-password"}
+              placeholder="••••••••"
+              className={`${inputClassName} pr-16`}
+              style={{
+                background: COLORS.bgCard,
+                borderColor: COLORS.border,
+                color: COLORS.ink,
+                fontFamily: "var(--sans)",
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute top-1/2 right-3 -translate-y-1/2 font-mono text-[10px] tracking-widest uppercase transition-opacity hover:opacity-70"
+              style={{ color: COLORS.muted }}
+            >
+              {showPassword ? "Cacher" : "Voir"}
+            </button>
+          </div>
+        </Field>
 
         {error ? (
           <div
-            className="rounded-lg px-4 py-3 text-sm"
+            role="alert"
+            className="rounded-md px-4 py-3 text-sm"
             style={{
               background: "#FEE2E2",
               color: "#991B1B",
@@ -268,7 +248,8 @@ export function ConnexionPortal() {
 
         {info ? (
           <div
-            className="rounded-lg px-4 py-3 text-sm"
+            role="status"
+            className="rounded-md px-4 py-3 text-sm"
             style={{
               background: "#ECFDF5",
               color: "#065F46",
@@ -282,20 +263,84 @@ export function ConnexionPortal() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3.5 font-mono text-xs tracking-wider text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="mt-1 w-full px-6 py-3.5 text-sm font-medium text-white transition-[background,opacity,transform] duration-200 hover:opacity-95 active:scale-[0.99] disabled:opacity-50"
           style={{ background: COLORS.terra }}
         >
           {loading
-            ? "EN COURS…"
-            : mode === "login"
-              ? espace === "admin"
-                ? "SE CONNECTER — ADMIN"
-                : "SE CONNECTER — ARTISTE"
-              : espace === "admin"
-                ? "CRÉER UN COMPTE ADMIN"
-                : "CRÉER MON COMPTE ARTISTE"}
+            ? "Un instant…"
+            : isSignup
+              ? "Créer mon compte"
+              : "Se connecter"}
         </button>
       </form>
+
+      <div
+        className="mt-8 space-y-4 border-t pt-6"
+        style={{ borderColor: COLORS.border }}
+      >
+        <p className="text-sm" style={{ color: COLORS.muted }}>
+          {isSignup ? "Déjà un compte ?" : "Pas encore de compte ?"}{" "}
+          <button
+            type="button"
+            onClick={() => switchMode(isSignup ? "login" : "signup")}
+            className="font-medium underline decoration-transparent underline-offset-4 transition-[text-decoration-color] hover:decoration-current"
+            style={{ color: COLORS.ink }}
+          >
+            {isSignup ? "Se connecter" : "Créer un compte"}
+          </button>
+        </p>
+
+        <p className="text-sm" style={{ color: COLORS.muted }}>
+          {isAdmin ? (
+            <>
+              Vous êtes artiste ?{" "}
+              <button
+                type="button"
+                onClick={() => switchEspace("artiste")}
+                className="font-medium underline decoration-transparent underline-offset-4 transition-[text-decoration-color] hover:decoration-current"
+                style={{ color: COLORS.ink }}
+              >
+                Espace artiste
+              </button>
+            </>
+          ) : (
+            <>
+              Accès équipe ?{" "}
+              <button
+                type="button"
+                onClick={() => switchEspace("admin")}
+                className="font-medium underline decoration-transparent underline-offset-4 transition-[text-decoration-color] hover:decoration-current"
+                style={{ color: COLORS.ink }}
+              >
+                Administration
+              </button>
+            </>
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  htmlFor,
+  children,
+}: {
+  label: string;
+  htmlFor: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={htmlFor}
+        className="mb-2 block text-sm font-medium"
+        style={{ color: COLORS.inkMid }}
+      >
+        {label}
+      </label>
+      {children}
     </div>
   );
 }

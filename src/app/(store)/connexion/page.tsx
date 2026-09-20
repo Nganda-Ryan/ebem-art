@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { COLORS } from "@/constants/colors";
@@ -9,7 +10,7 @@ import { getArtistForUser } from "@/modules/artists";
 export const metadata = {
   title: "Connexion - Mboa Arts",
   description:
-    "Connectez-vous ou créez un compte artiste ou administrateur.",
+    "Connectez-vous à votre espace artiste ou administrateur Mboa Arts.",
 };
 
 type Props = {
@@ -82,42 +83,73 @@ export default async function ConnexionPage({ searchParams }: Props) {
 
   return (
     <section
-      className="flex min-h-screen items-center justify-center pt-28 pb-20"
+      className="relative min-h-screen pt-20"
       style={{ background: COLORS.bg }}
     >
-      <div className="w-full max-w-md px-6">
-        <div className="mb-10 text-center">
-          <span
-            className="font-mono text-xs tracking-widest"
-            style={{ color: COLORS.terra }}
-          >
-            ACCÈS PLATEFORME
-          </span>
-          <h1
-            className="mt-2 font-serif text-4xl"
-            style={{ color: COLORS.ink }}
-          >
-            Connexion
-          </h1>
-          <p className="mt-3 text-sm" style={{ color: COLORS.muted }}>
-            {isAdminEspace
-              ? "Espace administrateur — connexion ou inscription."
-              : "Choisissez votre espace : artiste ou administrateur."}
-          </p>
+      <div className="grid min-h-[calc(100vh-5rem)] lg:grid-cols-2">
+        {/* Visual plane — gallery atmosphere */}
+        <div className="relative hidden min-h-[42vh] overflow-hidden lg:block lg:min-h-0">
+          <Image
+            src="/images/hero-gallery.jpg"
+            alt="Galerie Mboa Arts"
+            fill
+            priority
+            className="object-cover"
+            sizes="50vw"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(160deg, rgba(26,20,16,0.55) 0%, rgba(26,20,16,0.25) 45%, rgba(26,20,16,0.65) 100%)",
+            }}
+          />
+          <div className="absolute inset-0 flex flex-col justify-between p-10 xl:p-14">
+            <p
+              className="font-serif text-3xl tracking-tight text-white xl:text-4xl"
+              style={{ fontFamily: "var(--serif)" }}
+            >
+              Mboa Arts
+            </p>
+            <div className="max-w-md">
+              <p className="font-serif text-3xl leading-tight text-white xl:text-4xl">
+                {isAdminEspace
+                  ? "La scène se gère aussi dans les coulisses."
+                  : "Votre atelier, toujours à portée."}
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-white/75">
+                {isAdminEspace
+                  ? "Validez les artistes, publiez les œuvres, suivez les commandes."
+                  : "Publiez, suivez vos demandes et dialoguez avec la galerie."}
+              </p>
+            </div>
+          </div>
         </div>
 
-        <Suspense
-          fallback={
-            <div
-              className="py-12 text-center text-sm"
-              style={{ color: COLORS.muted }}
+        {/* Form column */}
+        <div className="relative flex items-center justify-center px-6 py-14 sm:px-10 lg:py-20">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-70"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 50% at 80% 0%, rgba(197,92,46,0.08), transparent 60%)",
+            }}
+          />
+          <div className="relative w-full max-w-104">
+            <Suspense
+              fallback={
+                <div
+                  className="py-16 text-center text-sm"
+                  style={{ color: COLORS.muted }}
+                >
+                  Chargement…
+                </div>
+              }
             >
-              Chargement…
-            </div>
-          }
-        >
-          <ConnexionPortal />
-        </Suspense>
+              <ConnexionPortal />
+            </Suspense>
+          </div>
+        </div>
       </div>
     </section>
   );

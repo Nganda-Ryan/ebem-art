@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
 import { COLORS } from "@/constants/colors";
+import { CatalogFlipCard } from "@/components/ui/catalog-flip-card";
 import type { ExplorerArtworkResult } from "@/modules/explorer";
 import { formatPrice } from "@/lib/format/price";
 
@@ -39,72 +41,34 @@ export function ExplorerResults({
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {artworks.map((artwork) => {
-        const href = artwork.id.startsWith("mock-")
-          ? "/explorer"
-          : `/oeuvres/${artwork.slug}`;
+        const isMock = artwork.id.startsWith("mock-");
+        const href = isMock ? "/explorer" : `/oeuvres/${artwork.slug}`;
+        const metaParts = [
+          artwork.year ? String(artwork.year) : null,
+          artwork.medium,
+        ].filter(Boolean);
+
         return (
-          <Link key={artwork.id} href={href} className="group block">
-            <div
-              className="overflow-hidden"
-              style={{ border: `1px solid ${COLORS.border}` }}
-            >
-              <div className="relative aspect-4/5 overflow-hidden bg-[#0C0A08]">
-                {artwork.coverUrl ? (
-                  <Image
-                    src={artwork.coverUrl}
-                    alt={artwork.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                ) : (
-                  <div
-                    className="flex h-full items-center justify-center text-sm"
-                    style={{ color: COLORS.muted, background: COLORS.bgAlt }}
-                  >
-                    Pas d&apos;image
-                  </div>
-                )}
-              </div>
-              <div className="p-4" style={{ background: COLORS.bgCard }}>
-                <h3
-                  className="font-serif text-xl group-hover:underline"
-                  style={{ color: COLORS.ink }}
-                >
-                  {artwork.title}
-                </h3>
-                <p className="mt-1 text-sm" style={{ color: COLORS.muted }}>
-                  {artwork.artist.name}
-                  {artwork.year ? ` · ${artwork.year}` : ""}
-                </p>
-                {artwork.medium ? (
-                  <p
-                    className="mt-0.5 font-mono text-[10px] tracking-wider"
-                    style={{ color: COLORS.terra }}
-                  >
-                    {artwork.medium.toUpperCase()}
-                  </p>
-                ) : null}
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {artwork.labels.slice(0, 4).map((label) => (
-                    <span
-                      key={label.slug}
-                      className="font-mono text-[10px] tracking-wider"
-                      style={{ color: COLORS.terra }}
-                    >
-                      {label.name.toUpperCase()}
-                    </span>
-                  ))}
-                </div>
-                <p
-                  className="mt-3 font-serif text-base"
-                  style={{ color: COLORS.ink }}
-                >
-                  {formatPrice(artwork.priceCents)}
-                </p>
-              </div>
-            </div>
-          </Link>
+          <CatalogFlipCard
+            key={artwork.id}
+            imageUrl={artwork.coverUrl}
+            imageAlt={artwork.title}
+            eyebrow={artwork.labels[0]?.name ?? artwork.medium}
+            title={artwork.title}
+            subtitle={artwork.artist.name}
+            meta={metaParts.length > 0 ? metaParts.join(" · ") : null}
+            footer={formatPrice(artwork.priceCents)}
+            href={href}
+            cartItem={{
+              artworkId: artwork.id,
+              slug: artwork.slug,
+              title: artwork.title,
+              priceCents: artwork.priceCents,
+              currency: artwork.currency,
+              imageUrl: artwork.coverUrl,
+              artistName: artwork.artist.name,
+            }}
+          />
         );
       })}
     </div>

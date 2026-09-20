@@ -1,4 +1,8 @@
 import Link from "next/link";
+import {
+  ArtistsGrid,
+  type ArtistCardData,
+} from "@/components/artists/ArtistsGrid";
 import { getPublishedArtists } from "@/modules/artists";
 import { MOCK_ARTISTS } from "@/data/mock";
 import { artistPortraitUrl } from "@/lib/media";
@@ -6,16 +10,7 @@ import { artistPortraitUrl } from "@/lib/media";
 export const metadata = { title: "Artistes - Mboa Arts" };
 export const dynamic = "force-dynamic";
 
-type ArtistCard = {
-  id: string;
-  slug: string;
-  name: string;
-  city: string | null;
-  discipline: string | null;
-  portraitUrl: string | null;
-};
-
-function mockArtists(): ArtistCard[] {
+function mockArtists(): ArtistCardData[] {
   return MOCK_ARTISTS.map((artist) => ({
     id: `mock-${artist.id}`,
     slug: artist.name.toLowerCase().replace(/\s+/g, "-"),
@@ -28,7 +23,7 @@ function mockArtists(): ArtistCard[] {
 
 export default async function ArtistesPage() {
   const rows = await getPublishedArtists();
-  const artists: ArtistCard[] =
+  const artists: ArtistCardData[] =
     rows.length > 0
       ? rows.map((artist) => ({
           id: artist.id,
@@ -41,8 +36,11 @@ export default async function ArtistesPage() {
       : mockArtists();
 
   return (
-    <section className="mx-auto max-w-7xl px-6 pt-28 pb-16">
-      <h1 className="font-serif text-4xl" style={{ color: "var(--color-mboa-ink)" }}>
+    <section className="mx-auto max-w-7xl px-6 pt-28 pb-16 md:px-12">
+      <h1
+        className="font-serif text-4xl md:text-5xl"
+        style={{ color: "var(--color-mboa-ink)" }}
+      >
         Artistes
       </h1>
       <p className="mt-2 text-sm" style={{ color: "var(--color-mboa-muted)" }}>
@@ -86,47 +84,8 @@ export default async function ArtistesPage() {
           Aucun artiste publié pour le moment.
         </p>
       ) : (
-        <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {artists.map((artist) => (
-            <Link
-              key={artist.id}
-              href={
-                artist.id.startsWith("mock-")
-                  ? "/artistes"
-                  : `/artistes/${artist.slug}`
-              }
-              className="group block overflow-hidden"
-              style={{ border: "1px solid var(--color-mboa-border)" }}
-            >
-              {artist.portraitUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={artist.portraitUrl}
-                  alt={artist.name}
-                  className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              ) : (
-                <div className="flex h-64 items-center justify-center bg-[var(--color-mboa-bg-alt)] text-sm text-[var(--color-mboa-muted)]">
-                  Pas de portrait
-                </div>
-              )}
-              <div className="p-4">
-                <h2 className="font-serif text-xl group-hover:underline">
-                  {artist.name}
-                </h2>
-                {artist.city ? (
-                  <p className="mt-1 text-sm text-[var(--color-mboa-muted)]">
-                    {artist.city}
-                  </p>
-                ) : null}
-                {artist.discipline ? (
-                  <p className="mt-0.5 font-mono text-xs tracking-wider text-[var(--color-mboa-terra)]">
-                    {artist.discipline}
-                  </p>
-                ) : null}
-              </div>
-            </Link>
-          ))}
+        <div className="mt-8">
+          <ArtistsGrid artists={artists} />
         </div>
       )}
     </section>
