@@ -5,36 +5,12 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { artistRequestSchema, type ArtistRequestInput } from "./schemas";
+import { createArtistRequestRecord } from "./service";
 
-/** Submit a new artist KYC request (public) */
+/** Submit a new artist KYC request (public) — prefer POST /api/artist-requests in the UI */
 export async function submitArtistRequest(data: ArtistRequestInput) {
-  const session = await getSession();
   const parsed = artistRequestSchema.parse(data);
-
-  const userId = session?.user?.id ?? null;
-
-  // Check if user already has a pending request
-  if (userId) {
-    const existing = await db.artistRequest.findFirst({
-      where: { userId, status: "PENDING" },
-    });
-    if (existing) {
-      throw new Error(
-        "Vous avez déjà une demande en cours de traitement."
-      );
-    }
-  }
-
-  const { birthDate, ...rest } = parsed;
-
-  await db.artistRequest.create({
-    data: {
-      ...rest,
-      birthDate: birthDate ? new Date(birthDate) : null,
-      userId,
-    },
-  });
-
+  await createArtistRequestRecord(parsed);
   redirect("/inscription/merci");
 }
 

@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { COLORS } from "@/constants/colors";
 import { FILTER_REGIONS } from "@/data/mock";
 import {
   ImageUpload,
   type ImageUploadHandle,
 } from "@/components/ui/image-upload";
-import { submitArtistRequest } from "@/modules/artist-requests/actions";
 
 const INPUT_STYLE = {
   background: COLORS.bgCard,
@@ -102,6 +102,7 @@ function Select({
 }
 
 export function InscriptionForm() {
+  const router = useRouter();
   const photoRef = useRef<ImageUploadHandle>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -118,21 +119,35 @@ export function InscriptionForm() {
         const urls = (await photoRef.current?.ensureUploaded()) ?? [];
         const profilePhotoUrl = urls[0] || null;
 
-        await submitArtistRequest({
-          firstName: fd.get("firstName") as string,
-          lastName: fd.get("lastName") as string,
-          birthDate: (fd.get("birthDate") as string) || null,
-          birthPlace: (fd.get("birthPlace") as string) || null,
-          artistName: fd.get("artistName") as string,
-          culturalStatus: (fd.get("culturalStatus") as string) || null,
-          bio: fd.get("bio") as string,
-          phone: fd.get("phone") as string,
-          whatsapp: (fd.get("whatsapp") as string) || null,
-          email: fd.get("email") as string,
-          city: fd.get("city") as string,
-          region: fd.get("region") as string,
-          profilePhotoUrl,
+        const res = await fetch("/api/artist-requests", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: fd.get("firstName") as string,
+            lastName: fd.get("lastName") as string,
+            birthDate: (fd.get("birthDate") as string) || null,
+            birthPlace: (fd.get("birthPlace") as string) || null,
+            artistName: fd.get("artistName") as string,
+            culturalStatus: (fd.get("culturalStatus") as string) || null,
+            bio: fd.get("bio") as string,
+            phone: fd.get("phone") as string,
+            whatsapp: (fd.get("whatsapp") as string) || null,
+            email: fd.get("email") as string,
+            city: fd.get("city") as string,
+            region: fd.get("region") as string,
+            profilePhotoUrl,
+          }),
         });
+
+        const json = (await res.json()) as { ok?: boolean; error?: string };
+
+        if (!res.ok) {
+          throw new Error(
+            json.error ?? "Une erreur est survenue. Veuillez réessayer."
+          );
+        }
+
+        router.push("/inscription/merci");
       } catch (err) {
         setError(
           err instanceof Error
