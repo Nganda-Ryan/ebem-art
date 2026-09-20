@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Helps clients detect version skew after a new deploy (Server Actions, RSC).
-  deploymentId: process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_DEPLOYMENT_ID,
+  // Next.js requires deploymentId ≤ 32 chars; full git SHA is 40.
+  deploymentId: (
+    process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_DEPLOYMENT_ID
+  )?.slice(0, 32),
   images: {
     remotePatterns: [
       {
