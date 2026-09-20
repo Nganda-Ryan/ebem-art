@@ -1,0 +1,1 @@
+export { InscriptionForm } from "./InscriptionForm";

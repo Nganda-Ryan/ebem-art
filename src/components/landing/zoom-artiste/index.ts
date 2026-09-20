@@ -1,0 +1,1 @@
+export { ZoomArtiste } from "./ZoomArtiste";

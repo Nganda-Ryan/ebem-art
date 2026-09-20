@@ -1,0 +1,43 @@
+import type { Workshop } from "@/types/landing";
+
+export const MOCK_WORKSHOPS: Workshop[] = [
+  {
+    id: 1,
+    title: "Initiation à la Sculpture en Argile",
+    artist: "Élise Nkemdifor",
+    date: "28 Sep 2026",
+    duration: "3h",
+    price: 15000,
+    spots: 12,
+    remaining: 4,
+    level: "Débutant",
+    location: "Bafoussam",
+    img: "https://images.unsplash.com/photo-1571503415486-04188b1fdd9f?w=400&h=260&fit=crop&auto=format",
+  },
+  {
+    id: 2,
+    title: "Peinture Acrylique : Techniques Contemporaines",
+    artist: "Samuel Mbida",
+    date: "5 Oct 2026",
+    duration: "4h",
+    price: 18000,
+    spots: 10,
+    remaining: 7,
+    level: "Intermédiaire",
+    location: "Yaoundé",
+    img: "https://images.unsplash.com/photo-1658401609213-ddefae08badd?w=400&h=260&fit=crop&auto=format",
+  },
+  {
+    id: 3,
+    title: "Sculpture sur Bois : Formes & Symboles",
+    artist: "Grace Fopa",
+    date: "12 Oct 2026",
+    duration: "5h",
+    price: 22000,
+    spots: 8,
+    remaining: 2,
+    level: "Tous niveaux",
+    location: "Douala",
+    img: "https://images.unsplash.com/photo-1688240817677-d28b8e232dd4?w=400&h=260&fit=crop&auto=format",
+  },
+];

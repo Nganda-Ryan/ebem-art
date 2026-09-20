@@ -1,0 +1,1 @@
+export { AProposMboa } from "./AProposMboa";

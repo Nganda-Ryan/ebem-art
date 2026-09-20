@@ -1,0 +1,272 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Better Auth tables (managed by better-auth) ──────
+
+model user {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          String    @default("user") // user | admin
+  banned        Boolean   @default(false)
+  banReason     String?
+  banExpires    DateTime?
+
+  sessions       session[]
+  accounts       account[]
+  artistRequests ArtistRequest[]
+  artist         Artist?
+}
+
+model session {
+  id             String   @id
+  expiresAt      DateTime
+  token          String   @unique
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  impersonatedBy String?
+}
+
+model account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@unique([accountId, providerId])
+}
+
+model verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, value])
+}
+
+// ─── Domain models (EBEM Art) ─────────────────────────
+
+model Label {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  artworks Artwork[] @relation("ArtworkLabels")
+  artists  Artist[]  @relation("ArtistLabels")
+}
+
+model Artist {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String
+  bio         String? @db.Text
+  city        String?
+  region      String?
+  discipline  String?
+  portraitUrl String?
+  published   Boolean @default(false)
+
+  // KYC fields
+  firstName       String?
+  lastName        String?
+  birthDate       DateTime?
+  birthPlace      String?
+  artistName      String?
+  culturalStatus  String?   @db.Text
+  phone           String?
+  whatsapp        String?
+  email           String?
+  profilePhotoUrl String?
+
+  // Linked auth account (set on KYC approval)
+  userId String? @unique
+  user   user?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  artworks        Artwork[]
+  labels          Label[]          @relation("ArtistLabels")
+  artistRequests  ArtistRequest[]
+  artworkRequests ArtworkRequest[]
+}
+
+model Artwork {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  title            String
+  titleTranslation String?  @db.Text
+  description      String?  @db.Text
+  medium           String?
+  technique        String?
+  year             Int?
+  priceCents       Int
+  artistPriceCents Int?
+  currency         String   @default("XAF")
+  status           String   @default("AVAILABLE") // AVAILABLE | RESERVED | SOLD | EXHIBITING
+  published        Boolean  @default(false) // catalogue storefront (séparé de l'approbation)
+  imageUrls        String[] // composed: front + details + context (catalog)
+
+  // Typed authenticity photos
+  frontImageUrl   String?
+  detailImageUrls String[]
+  contextImageUrl String?
+
+  // Dimensions & weight
+  heightCm Float?
+  widthCm  Float?
+  depthCm  Float?
+  weightKg Float?
+
+  // Framing & packaging
+  framed    Boolean? @default(false)
+  packaging String? // ROULEE | CHASSIS | CAISSE_BOIS
+  location  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  artistId String
+  artist   Artist @relation(fields: [artistId], references: [id])
+
+  labels          Label[]          @relation("ArtworkLabels")
+  orderItems      OrderItem[]
+  artworkRequests ArtworkRequest[]
+}
+
+model Order {
+  id              String  @id @default(cuid())
+  email           String
+  status          String  @default("PENDING") // PENDING | PAID | FAILED | REFUNDED
+  stripeSessionId String? @unique
+  totalCents      Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id             String @id @default(cuid())
+  unitPriceCents Int
+  quantity       Int    @default(1)
+
+  artworkId String
+  artwork   Artwork @relation(fields: [artworkId], references: [id])
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@unique([orderId, artworkId])
+}
+
+model ArtistRequest {
+  id        String  @id @default(cuid())
+  status    String  @default("PENDING") // PENDING | APPROVED | REJECTED
+  adminNote String? @db.Text
+
+  // KYC fields
+  firstName       String
+  lastName        String
+  birthDate       DateTime?
+  birthPlace      String?
+  artistName      String?
+  culturalStatus  String?   @db.Text
+  bio             String?   @db.Text // Profil artistique & storytelling
+  phone           String
+  whatsapp        String?
+  email           String
+  city            String
+  region          String
+  profilePhotoUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId   String?
+  user     user?   @relation(fields: [userId], references: [id])
+  artistId String?
+  artist   Artist? @relation(fields: [artistId], references: [id])
+}
+
+model ArtworkRequest {
+  id        String  @id @default(cuid())
+  status    String  @default("PENDING") // PENDING | APPROVED | REJECTED
+  adminNote String? @db.Text
+
+  // Artwork fields
+  title            String
+  titleTranslation String?  @db.Text
+  description      String?  @db.Text
+  medium           String?
+  technique        String?
+  year             Int?
+  priceCents       Int
+  artistPriceCents Int?
+  currency         String   @default("XAF")
+  imageUrls        String[] // composed: front + details + context
+  workStatus       String   @default("AVAILABLE") // AVAILABLE | RESERVED | SOLD | EXHIBITING
+
+  // Typed authenticity photos
+  frontImageUrl   String?
+  detailImageUrls String[]
+  contextImageUrl String?
+
+  // Dimensions & weight
+  heightCm Float?
+  widthCm  Float?
+  depthCm  Float?
+  weightKg Float?
+
+  // Framing & packaging
+  framed    Boolean? @default(false)
+  packaging String? // ROULEE | CHASSIS | CAISSE_BOIS
+  location  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  artistId  String
+  artist    Artist   @relation(fields: [artistId], references: [id])
+  artwork   Artwork? @relation(fields: [artworkId], references: [id])
+  artworkId String?
+}
+
+model StripeEvent {
+  id        String   @id
+  type      String
+  createdAt DateTime @default(now())
+
+  @@unique([id])
+}

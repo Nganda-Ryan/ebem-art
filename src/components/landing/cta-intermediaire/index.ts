@@ -1,0 +1,1 @@
+export { CtaIntermediaire } from "./CtaIntermediaire";

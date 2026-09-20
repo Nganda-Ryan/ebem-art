@@ -1,0 +1,1 @@
+export { ArtisteAuthForm } from "./ArtisteAuthForm";
