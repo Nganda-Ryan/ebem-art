@@ -160,7 +160,7 @@ export function GlobalSearch({
             role="dialog"
             aria-modal="true"
             aria-label="Recherche globale"
-            className="relative z-10 flex max-h-[min(70vh,560px)] w-full max-w-xl flex-col overflow-hidden rounded-2xl shadow-2xl"
+            className="relative z-10 flex max-h-[min(70vh,560px)] w-full max-w-xl flex-col overflow-hidden rounded-xl shadow-2xl"
             style={{ background: COLORS.bg, border: `1px solid ${COLORS.border}` }}
           >
             <form
@@ -186,7 +186,7 @@ export function GlobalSearch({
                 spellCheck={false}
               />
               <kbd
-                className="hidden rounded px-1.5 py-0.5 font-mono text-[10px] sm:inline"
+                className="hidden rounded-xl px-1.5 py-0.5 font-mono text-[10px] sm:inline"
                 style={{
                   color: COLORS.muted,
                   border: `1px solid ${COLORS.border}`,
@@ -330,7 +330,7 @@ function ResultThumb({
   return (
     <div
       className={`relative h-11 w-11 shrink-0 overflow-hidden bg-black/5 ${
-        round ? "rounded-full" : "rounded-lg"
+        round ? "rounded-xl-full" : "rounded-xl"
       }`}
     >
       {src ? (

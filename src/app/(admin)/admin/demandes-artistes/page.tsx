@@ -16,13 +16,15 @@ export default async function AdminDemandesArtistesPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Demandes d&apos;inscription Artistes</h1>
+      <h1 className="text-xl font-bold sm:text-2xl">
+        Demandes d&apos;inscription Artistes
+      </h1>
       <p className="mt-1 text-sm text-gray-500">
         Examinez et approuvez les demandes KYC des artistes.
       </p>
 
-      <div className="mt-6 overflow-hidden rounded-lg border border-gray-200">
-        <table className="w-full text-left text-sm">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+        <table className="w-full min-w-[48rem] text-left text-sm">
           <thead className="bg-gray-50 text-gray-600">
             <tr>
               <th className="px-4 py-3">Nom</th>
@@ -59,7 +61,7 @@ export default async function AdminDemandesArtistesPage() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className="inline-block rounded-full px-2 py-0.5 text-xs font-medium"
+                      className="inline-block rounded-xl-full px-2 py-0.5 text-xs font-medium"
                       style={{ background: style.bg, color: style.color }}
                     >
                       {style.label}

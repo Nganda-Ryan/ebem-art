@@ -9,7 +9,7 @@ export function BrandMark({ inverted = false }: BrandMarkProps) {
   return (
     <div className="flex items-center gap-3">
       <div
-        className="flex h-8 w-8 items-center justify-center rounded-full"
+        className="flex h-8 w-8 items-center justify-center rounded-xl-full"
         style={{ background: COLORS.terra }}
       >
         <span className="text-xs text-white" style={{ fontFamily: "var(--serif)" }}>

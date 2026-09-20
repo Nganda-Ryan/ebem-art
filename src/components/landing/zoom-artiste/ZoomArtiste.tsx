@@ -161,7 +161,7 @@ export function ZoomArtiste() {
               type="button"
               aria-label={`Artiste ${index + 1}`}
               onClick={() => setCurrent(index)}
-              className="h-2 w-2 rounded-full transition-all"
+              className="h-2 w-2 rounded-xl-full transition-all"
               style={{ background: current === index ? COLORS.terra : COLORS.border }}
             />
           ))}

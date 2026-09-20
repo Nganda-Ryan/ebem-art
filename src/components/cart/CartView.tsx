@@ -44,7 +44,7 @@ export function CartView() {
         <p className="text-gray-600">Votre panier est vide.</p>
         <Link
           href="/explorer"
-          className="mt-6 inline-block rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
+          className="mt-6 inline-block rounded-xl bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
         >
           Explorer les œuvres
         </Link>
@@ -64,7 +64,7 @@ export function CartView() {
           >
             <Link
               href={`/oeuvres/${item.slug}`}
-              className="shrink-0 overflow-hidden rounded-lg bg-gray-100"
+              className="shrink-0 overflow-hidden rounded-xl bg-gray-100"
             >
               {item.imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -116,7 +116,7 @@ export function CartView() {
           type="button"
           onClick={handleCheckout}
           disabled={loading}
-          className="rounded-lg bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+          className="rounded-xl bg-gray-900 px-8 py-3 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
         >
           {loading ? "Redirection vers le paiement…" : "Finaliser l'achat"}
         </button>

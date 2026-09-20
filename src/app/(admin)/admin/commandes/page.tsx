@@ -18,8 +18,8 @@ export default async function AdminCommandesPage() {
     <div>
       <h1 className="text-2xl font-bold">Commandes</h1>
 
-      <div className="mt-6 overflow-hidden rounded-lg border border-gray-200">
-        <table className="w-full text-left text-sm">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+        <table className="w-full min-w-[36rem] text-left text-sm">
           <thead className="bg-gray-50 text-gray-600">
             <tr>
               <th className="px-4 py-3">ID</th>

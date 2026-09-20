@@ -11,7 +11,7 @@ type TestimonialCardProps = {
 export function TestimonialCard({ testimonial, revealDelay = 1 }: TestimonialCardProps) {
   return (
     <div
-      className={`reveal reveal-delay-${revealDelay} p-7`}
+      className={`reveal reveal-delay-${revealDelay} p-7 rounded-xl`}
       style={{ border: `1px solid ${COLORS.border}`, background: COLORS.bgCard }}
     >
       <div

@@ -23,8 +23,8 @@ export function LogoutButton({
       onClick={handleLogout}
       className={
         isArtist
-          ? "w-full rounded px-3 py-2 text-left text-sm transition-colors hover:opacity-80"
-          : "rounded px-3 py-2 text-sm text-gray-600 hover:bg-gray-200"
+          ? "w-full rounded-xl px-3 py-2 text-left text-sm transition-colors hover:opacity-80"
+          : "rounded-xl px-3 py-2 text-sm text-gray-600 hover:bg-gray-200"
       }
       style={isArtist ? { color: COLORS.inkMid } : undefined}
     >

@@ -122,7 +122,7 @@ function StepIndicator({ step }: { step: number }) {
             )}
             <div className="flex items-center gap-1.5">
               <span
-                className="flex h-6 w-6 items-center justify-center rounded-full font-mono text-[10px]"
+                className="flex h-6 w-6 items-center justify-center rounded-xl-full font-mono text-[10px]"
                 style={{
                   background: active || done ? COLORS.terra : COLORS.bgAlt,
                   color: active || done ? "#fff" : COLORS.muted,
@@ -532,7 +532,7 @@ export function ArtworkSubmissionDrawer({
 
             {error && (
               <div
-                className="mt-4 rounded-lg px-3 py-2.5 text-sm"
+                className="mt-4 rounded-xl px-3 py-2.5 text-sm"
                 style={{
                   background: "#FEE2E2",
                   color: "#991B1B",

@@ -13,13 +13,13 @@ export default async function AdminArtistesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold">Artistes</h1>
         <NewArtistButton />
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-lg border border-gray-200">
-        <table className="w-full text-left text-sm">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+        <table className="w-full min-w-[40rem] text-left text-sm">
           <thead className="bg-gray-50 text-gray-600">
             <tr>
               <th className="px-4 py-3">Nom</th>
@@ -41,7 +41,7 @@ export default async function AdminArtistesPage() {
                     {artist.name}
                   </Link>
                   {artist.user?.banned && (
-                    <span className="ml-2 rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
+                    <span className="ml-2 rounded-xl bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-700">
                       Bloqué
                     </span>
                   )}

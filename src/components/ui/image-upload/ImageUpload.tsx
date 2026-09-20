@@ -220,7 +220,7 @@ export const ImageUpload = forwardRef<ImageUploadHandle, ImageUploadProps>(
             {items.map((item) => (
               <div
                 key={item.id}
-                className="relative h-28 w-28 overflow-hidden rounded-md"
+                className="relative h-28 w-28 overflow-hidden rounded-xl-md"
                 style={{ border: `1px solid ${COLORS.border}` }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -260,7 +260,7 @@ export const ImageUpload = forwardRef<ImageUploadHandle, ImageUploadProps>(
             type="button"
             onClick={() => openPicker()}
             disabled={uploading}
-            className="flex w-full cursor-pointer flex-col items-center justify-center gap-1 rounded-md px-4 py-6 text-center transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="flex w-full cursor-pointer flex-col items-center justify-center gap-1 rounded-xl-md px-4 py-6 text-center transition-opacity hover:opacity-90 disabled:opacity-50"
             style={{
               border: `1px dashed ${COLORS.border}`,
               background: COLORS.bgCard,

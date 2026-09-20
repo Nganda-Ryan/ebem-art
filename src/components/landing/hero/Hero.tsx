@@ -108,7 +108,7 @@ export function Hero() {
 
           {/* Metrics higher - visible in first viewport */}
           <div
-            className="mb-8 grid grid-cols-3 border"
+            className="mb-8 grid grid-cols-3 overflow-hidden rounded-xl border"
             style={{ borderColor: "rgba(255,255,255,0.14)" }}
           >
             {HERO_STATS.map((stat, index) => (
@@ -144,11 +144,11 @@ export function Hero() {
             ))}
           </div>
 
-          {/* CTAs - stack on narrow screens to avoid overflow */}
-          <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          {/* CTAs - always one row */}
+          <div className="flex w-full flex-row items-stretch gap-2 sm:items-center sm:gap-3">
             <Button
               variant="terra"
-              className="w-full px-5 py-3.5 text-center text-xs font-medium tracking-wider sm:w-auto sm:px-8 sm:text-sm"
+              className="min-w-0 flex-1 rounded-md px-3 py-3 text-center text-[10px] font-medium tracking-wider sm:flex-none sm:px-8 sm:py-3.5 sm:text-sm"
               style={{ fontFamily: "var(--sans)" }}
               onClick={() => {
                 window.location.assign("/explorer");
@@ -158,7 +158,7 @@ export function Hero() {
             </Button>
             <button
               type="button"
-              className="w-full px-5 py-3.5 text-center text-xs font-medium tracking-wider transition-colors sm:w-auto sm:px-8 sm:text-sm"
+              className="min-w-0 flex-1 rounded-md px-3 py-3 text-center text-[10px] font-medium tracking-wider transition-colors sm:flex-none sm:px-8 sm:py-3.5 sm:text-sm"
               style={{
                 color: "#FFFFFF",
                 border: "1px solid rgba(255,255,255,0.45)",

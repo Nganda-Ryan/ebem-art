@@ -39,7 +39,7 @@ export default async function AdminDemandeArtisteDetailPage({
           {request.firstName} {request.lastName}
         </h1>
         <span
-          className="inline-block rounded-full px-3 py-1 text-xs font-medium"
+          className="inline-block rounded-xl-full px-3 py-1 text-xs font-medium"
           style={{ background: style.bg, color: style.color }}
         >
           {style.label}
@@ -48,7 +48,7 @@ export default async function AdminDemandeArtisteDetailPage({
 
       <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Identity */}
-        <div className="rounded-lg border border-gray-200 p-6">
+        <div className="rounded-xl border border-gray-200 p-6">
           <h2 className="mb-4 text-sm font-semibold uppercase text-gray-500">
             Identité
           </h2>
@@ -79,7 +79,7 @@ export default async function AdminDemandeArtisteDetailPage({
                   alt={`Photo de ${request.firstName} ${request.lastName}`}
                   width={160}
                   height={160}
-                  className="h-40 w-40 rounded-lg object-cover"
+                  className="h-40 w-40 rounded-xl object-cover"
                   sizes="160px"
                   unoptimized
                 />
@@ -91,7 +91,7 @@ export default async function AdminDemandeArtisteDetailPage({
         </div>
 
         {/* Artist profile */}
-        <div className="rounded-lg border border-gray-200 p-6">
+        <div className="rounded-xl border border-gray-200 p-6">
           <h2 className="mb-4 text-sm font-semibold uppercase text-gray-500">
             Profil Artiste
           </h2>
@@ -107,7 +107,7 @@ export default async function AdminDemandeArtisteDetailPage({
             {request.bio && (
               <div>
                 <dt className="mb-1 text-gray-500">Profil artistique & storytelling</dt>
-                <dd className="whitespace-pre-line rounded bg-gray-50 p-3 text-sm leading-relaxed">
+                <dd className="whitespace-pre-line rounded-xl bg-gray-50 p-3 text-sm leading-relaxed">
                   {request.bio}
                 </dd>
               </div>
@@ -116,7 +116,7 @@ export default async function AdminDemandeArtisteDetailPage({
         </div>
 
         {/* Contact */}
-        <div className="rounded-lg border border-gray-200 p-6">
+        <div className="rounded-xl border border-gray-200 p-6">
           <h2 className="mb-4 text-sm font-semibold uppercase text-gray-500">
             Contact
           </h2>
@@ -143,7 +143,7 @@ export default async function AdminDemandeArtisteDetailPage({
         </div>
 
         {/* Admin info */}
-        <div className="rounded-lg border border-gray-200 p-6">
+        <div className="rounded-xl border border-gray-200 p-6">
           <h2 className="mb-4 text-sm font-semibold uppercase text-gray-500">
             Informations
           </h2>
@@ -163,7 +163,7 @@ export default async function AdminDemandeArtisteDetailPage({
             {request.adminNote && (
               <div>
                 <dt className="text-gray-500">Note admin</dt>
-                <dd className="mt-1 rounded bg-gray-50 p-2 text-sm">
+                <dd className="mt-1 rounded-xl bg-gray-50 p-2 text-sm">
                   {request.adminNote}
                 </dd>
               </div>
@@ -187,7 +187,7 @@ export default async function AdminDemandeArtisteDetailPage({
         <div className="mt-8">
           <Link
             href={`/admin/artistes/${request.artistId}`}
-            className="inline-block rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+            className="inline-block rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
           >
             Voir l&apos;artiste créé →
           </Link>

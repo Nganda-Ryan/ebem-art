@@ -1,43 +1,37 @@
 "use client";
 
-import type { Artwork } from "@/types/landing";
+import type { LandingArtwork } from "@/lib/landing/catalog";
 import { CatalogFlipCard } from "@/components/ui/catalog-flip-card";
 import { formatPrice } from "@/lib/format/price";
 
 type WorkCardProps = {
-  work: Artwork;
+  work: LandingArtwork;
 };
 
-function slugify(value: string) {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
 export function WorkCard({ work }: WorkCardProps) {
-  const slug = slugify(work.title);
+  const metaParts = [
+    work.year ? String(work.year) : null,
+    work.medium,
+  ].filter(Boolean);
 
   return (
     <CatalogFlipCard
-      imageUrl={work.img}
+      imageUrl={work.coverUrl}
       imageAlt={work.title}
-      eyebrow={work.discipline}
+      eyebrow={work.facets[0] ?? work.medium}
       title={work.title}
-      subtitle={work.artist}
-      meta={`${work.year} · ${work.medium}`}
-      footer={formatPrice(work.price)}
-      href={`/explorer`}
+      subtitle={work.artistName}
+      meta={metaParts.length > 0 ? metaParts.join(" · ") : null}
+      footer={formatPrice(work.priceCents)}
+      href={`/oeuvres/${work.slug}`}
       cartItem={{
-        artworkId: `mock-${work.id}`,
-        slug,
+        artworkId: work.id,
+        slug: work.slug,
         title: work.title,
-        priceCents: work.price,
-        currency: "XAF",
-        imageUrl: work.img,
-        artistName: work.artist,
+        priceCents: work.priceCents,
+        currency: work.currency,
+        imageUrl: work.coverUrl,
+        artistName: work.artistName,
       }}
     />
   );

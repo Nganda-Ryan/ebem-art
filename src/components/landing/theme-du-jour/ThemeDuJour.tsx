@@ -19,7 +19,7 @@ export function ThemeDuJour() {
   return (
     <section id="actualite" ref={ref} className="py-10 md:py-14">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
-        <div className="reveal relative flex min-h-[440px] w-full flex-col justify-end overflow-hidden md:aspect-21/9 md:min-h-[420px]">
+        <div className="reveal relative flex min-h-110 w-full flex-col justify-end overflow-hidden md:aspect-21/9 md:min-h-105 rounded-xl">
           <Image
             src={labels.img}
             alt={labels.imgAlt}
@@ -70,7 +70,7 @@ export function ThemeDuJour() {
 
             <a
               href={labels.promoHref}
-              className="group flex w-full max-w-sm shrink-0 items-center gap-3 rounded-2xl p-3.5 text-white transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 sm:gap-4 sm:p-4 md:w-auto"
+              className="group flex w-full max-w-sm shrink-0 items-center gap-3 rounded-xl p-3.5 text-white transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 sm:gap-4 sm:p-4 md:w-auto"
               style={{ background: COLORS.terra, outlineColor: "#fff" }}
               aria-label={`${labels.promoEyebrow} - ${featured.headline}`}
             >

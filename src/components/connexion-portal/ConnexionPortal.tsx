@@ -235,7 +235,7 @@ export function ConnexionPortal() {
         {error ? (
           <div
             role="alert"
-            className="rounded-md px-4 py-3 text-sm"
+            className="rounded-xl-md px-4 py-3 text-sm"
             style={{
               background: "#FEE2E2",
               color: "#991B1B",
@@ -249,7 +249,7 @@ export function ConnexionPortal() {
         {info ? (
           <div
             role="status"
-            className="rounded-md px-4 py-3 text-sm"
+            className="rounded-xl-md px-4 py-3 text-sm"
             style={{
               background: "#ECFDF5",
               color: "#065F46",

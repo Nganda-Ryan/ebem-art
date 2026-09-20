@@ -61,7 +61,7 @@ export function ConfirmActionDrawer({
       footer={
         <div className="flex flex-col gap-2">
           {error && (
-            <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
               {error}
             </p>
           )}
@@ -70,7 +70,7 @@ export function ConfirmActionDrawer({
               type="button"
               disabled={loading}
               onClick={() => onOpenChange(false)}
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+              className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
             >
               {cancelLabel}
             </button>
@@ -78,7 +78,7 @@ export function ConfirmActionDrawer({
               type="button"
               disabled={loading}
               onClick={handleConfirm}
-              className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-50 ${confirmClass}`}
+              className={`flex-1 rounded-xl px-4 py-2 text-sm font-medium disabled:opacity-50 ${confirmClass}`}
             >
               {loading ? "En cours…" : confirmLabel}
             </button>

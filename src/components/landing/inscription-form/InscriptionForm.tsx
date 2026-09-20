@@ -146,7 +146,7 @@ export function InscriptionForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-8">
       <div
-        className="rounded-lg p-6 md:p-8"
+        className="rounded-xl p-6 md:p-8"
         style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
       >
         <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
@@ -169,7 +169,7 @@ export function InscriptionForm() {
       </div>
 
       <div
-        className="rounded-lg p-6 md:p-8"
+        className="rounded-xl p-6 md:p-8"
         style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
       >
         <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
@@ -220,7 +220,7 @@ export function InscriptionForm() {
       </div>
 
       <div
-        className="rounded-lg p-6 md:p-8"
+        className="rounded-xl p-6 md:p-8"
         style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
       >
         <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
@@ -275,7 +275,7 @@ export function InscriptionForm() {
 
       {error && (
         <div
-          className="rounded-lg px-4 py-3 text-sm"
+          className="rounded-xl px-4 py-3 text-sm"
           style={{
             background: "#FEE2E2",
             color: "#991B1B",

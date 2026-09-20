@@ -71,7 +71,7 @@ export default async function AdminDemandeOeuvreDetailPage({
           }
           badges={
             <span
-              className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${style.className}`}
+              className={`rounded-xl-full px-2.5 py-0.5 text-xs font-medium ${style.className}`}
             >
               {style.label}
             </span>
@@ -89,14 +89,14 @@ export default async function AdminDemandeOeuvreDetailPage({
                 {request.artworkId && (
                   <Link
                     href={`/admin/oeuvres/${request.artworkId}`}
-                    className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
+                    className="rounded-xl bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
                   >
                     Voir l&apos;œuvre →
                   </Link>
                 )}
                 <Link
                   href={`/admin/artistes/${request.artistId}`}
-                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="rounded-xl border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                   Voir l&apos;artiste →
                 </Link>

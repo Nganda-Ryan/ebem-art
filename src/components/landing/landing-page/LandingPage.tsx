@@ -5,13 +5,18 @@ import { Explorer } from "@/components/landing/explorer";
 import { Temoignages } from "@/components/landing/temoignages";
 import { Newsletter } from "@/components/landing/newsletter";
 import { COLORS } from "@/constants/colors";
+import type { LandingArtwork } from "@/lib/landing/catalog";
 
-export function LandingPage() {
+type LandingPageProps = {
+  artworks: LandingArtwork[];
+};
+
+export function LandingPage({ artworks }: LandingPageProps) {
   return (
     <div style={{ background: COLORS.bg, minHeight: "100%" }}>
       <Hero />
       <AProposMboa />
-      <Explorer />
+      <Explorer works={artworks} />
       <ThemeDuJour />
       <Temoignages />
       <Newsletter />

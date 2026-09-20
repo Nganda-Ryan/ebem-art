@@ -60,12 +60,12 @@ export function ArtisteAuthForm() {
 
   return (
     <div
-      className="w-full rounded-lg p-6 md:p-8"
+      className="w-full rounded-xl p-6 md:p-8"
       style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
     >
       {/* Toggle login / signup */}
       <div
-        className="mb-8 grid grid-cols-2 gap-1 rounded-md p-1"
+        className="mb-8 grid grid-cols-2 gap-1 rounded-xl-md p-1"
         style={{ background: COLORS.bgCard, border: `1px solid ${COLORS.border}` }}
       >
         {(["login", "signup"] as const).map((m) => (
@@ -148,7 +148,7 @@ export function ArtisteAuthForm() {
 
         {error && (
           <div
-            className="rounded-lg px-4 py-3 text-sm"
+            className="rounded-xl px-4 py-3 text-sm"
             style={{
               background: "#FEE2E2",
               color: "#991B1B",

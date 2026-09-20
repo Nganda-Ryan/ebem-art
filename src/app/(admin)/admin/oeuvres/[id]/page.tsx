@@ -70,11 +70,11 @@ export default async function AdminArtworkDetailPage({
           }
           badges={
             <>
-              <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+              <span className="rounded-xl-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
                 {STATUS_LABEL[artwork.status] ?? artwork.status}
               </span>
               <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                className={`rounded-xl-full px-2.5 py-0.5 text-xs font-medium ${
                   artwork.published
                     ? "bg-emerald-100 text-emerald-800"
                     : "bg-amber-100 text-amber-800"
@@ -152,7 +152,7 @@ export default async function AdminArtworkDetailPage({
                 {artwork.labels.map((label) => (
                   <span
                     key={label.id}
-                    className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700"
+                    className="rounded-xl-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700"
                   >
                     {label.name}
                   </span>

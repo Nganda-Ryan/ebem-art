@@ -13,7 +13,7 @@ export default function InscriptionMerciPage() {
     >
       <div className="mx-auto max-w-lg px-6 text-center">
         <div
-          className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full"
+          className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-xl-full"
           style={{ background: COLORS.terra }}
         >
           <span className="text-2xl text-white">✓</span>

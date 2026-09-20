@@ -4,36 +4,22 @@ import {
   type ArtistCardData,
 } from "@/components/artists/ArtistsGrid";
 import { getPublishedArtists } from "@/modules/artists";
-import { MOCK_ARTISTS } from "@/data/mock";
 import { artistPortraitUrl } from "@/lib/media";
+import { COLORS } from "@/constants/colors";
 
 export const metadata = { title: "Artistes - Mboa Arts" };
 export const dynamic = "force-dynamic";
 
-function mockArtists(): ArtistCardData[] {
-  return MOCK_ARTISTS.map((artist) => ({
-    id: `mock-${artist.id}`,
-    slug: artist.name.toLowerCase().replace(/\s+/g, "-"),
+export default async function ArtistesPage() {
+  const rows = await getPublishedArtists();
+  const artists: ArtistCardData[] = rows.map((artist) => ({
+    id: artist.id,
+    slug: artist.slug,
     name: artist.name,
     city: artist.city,
     discipline: artist.discipline,
-    portraitUrl: artist.img,
+    portraitUrl: artistPortraitUrl(artist),
   }));
-}
-
-export default async function ArtistesPage() {
-  const rows = await getPublishedArtists();
-  const artists: ArtistCardData[] =
-    rows.length > 0
-      ? rows.map((artist) => ({
-          id: artist.id,
-          slug: artist.slug,
-          name: artist.name,
-          city: artist.city,
-          discipline: artist.discipline,
-          portraitUrl: artistPortraitUrl(artist),
-        }))
-      : mockArtists();
 
   return (
     <section className="mx-auto max-w-7xl px-6 pt-28 pb-16 md:px-12">
@@ -48,7 +34,7 @@ export default async function ArtistesPage() {
       </p>
 
       <div
-        className="mt-8 flex flex-col items-start justify-between gap-4 rounded-lg p-6 md:flex-row md:items-center md:p-8"
+        className="mt-8 flex flex-col items-start justify-between gap-4 rounded-xl p-6 md:flex-row md:items-center md:p-8"
         style={{
           background: "var(--color-mboa-bg-alt, #EDE7DC)",
           border: "1px solid var(--color-mboa-border)",
@@ -80,9 +66,28 @@ export default async function ArtistesPage() {
       </div>
 
       {artists.length === 0 ? (
-        <p className="mt-8" style={{ color: "var(--color-mboa-muted)" }}>
-          Aucun artiste publié pour le moment.
-        </p>
+        <div className="mt-16 py-8 text-center">
+          <h2
+            className="font-serif text-2xl"
+            style={{ color: COLORS.ink }}
+          >
+            Aucun artiste publié
+          </h2>
+          <p
+            className="mx-auto mt-2 max-w-md text-sm"
+            style={{ color: COLORS.muted }}
+          >
+            Les profils artistes apparaîtront ici dès leur validation. Vous
+            pouvez déjà déposer une candidature.
+          </p>
+          <Link
+            href="/inscription"
+            className="mt-6 inline-block px-6 py-3 font-mono text-xs tracking-wider text-white transition-opacity hover:opacity-90"
+            style={{ background: COLORS.terra }}
+          >
+            DEVENIR ARTISTE
+          </Link>
+        </div>
       ) : (
         <div className="mt-8">
           <ArtistsGrid artists={artists} />

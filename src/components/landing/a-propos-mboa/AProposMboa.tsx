@@ -28,12 +28,12 @@ export function AProposMboa() {
       <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
         <div className="reveal grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <figure className="lg:col-span-5">
-            <div className="relative aspect-4/5 overflow-hidden">
+            <div className="relative aspect-square overflow-hidden sm:aspect-[5/6]">
               <Image
                 src={promoter.img}
                 alt={promoter.alt}
                 fill
-                className="object-cover object-[center_20%]"
+                className="rounded-xl object-cover object-[center_20%]"
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 priority
               />

@@ -41,7 +41,7 @@ function slugify(value: string) {
 }
 
 const inputClass =
-  "mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500";
+  "mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500";
 
 export function ArtistFormDrawer({
   open,
@@ -132,7 +132,7 @@ export function ArtistFormDrawer({
         className="space-y-4"
       >
         {error && (
-          <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
             {error}
           </p>
         )}
@@ -216,7 +216,7 @@ export function ArtistFormDrawer({
             name="published"
             type="checkbox"
             defaultChecked={initial?.published ?? false}
-            className="rounded border-gray-300"
+            className="rounded-xl border-gray-300"
           />
           Publié sur le storefront
         </label>
@@ -225,14 +225,14 @@ export function ArtistFormDrawer({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Annuler
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+            className="flex-1 rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
           >
             {loading ? "Enregistrement…" : isEdit ? "Enregistrer" : "Créer"}
           </button>

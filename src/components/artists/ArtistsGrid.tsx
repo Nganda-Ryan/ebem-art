@@ -19,9 +19,7 @@ export function ArtistsGrid({ artists }: ArtistsGridProps) {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {artists.map((artist) => {
-        const href = artist.id.startsWith("mock-")
-          ? "/artistes"
-          : `/artistes/${artist.slug}`;
+        const href = `/artistes/${artist.slug}`;
 
         return (
           <CatalogFlipCard

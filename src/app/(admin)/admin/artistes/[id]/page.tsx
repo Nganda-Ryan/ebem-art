@@ -56,7 +56,7 @@ export default async function AdminArtistDetailPage({
           badges={
             <>
               <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                className={`rounded-xl-full px-2.5 py-0.5 text-xs font-medium ${
                   artist.published
                     ? "bg-emerald-100 text-emerald-800"
                     : "bg-gray-100 text-gray-600"
@@ -66,7 +66,7 @@ export default async function AdminArtistDetailPage({
               </span>
               {artist.user && (
                 <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                  className={`rounded-xl-full px-2.5 py-0.5 text-xs font-medium ${
                     artist.user.banned
                       ? "bg-red-100 text-red-800"
                       : "bg-blue-100 text-blue-800"
@@ -163,8 +163,8 @@ export default async function AdminArtistDetailPage({
             defaultArtistId={artist.id}
           />
         </div>
-        <div className="overflow-hidden rounded-lg border border-gray-100">
-          <table className="w-full text-left text-sm">
+        <div className="overflow-x-auto rounded-xl border border-gray-100">
+          <table className="w-full min-w-[32rem] text-left text-sm">
             <thead className="bg-gray-50 text-gray-500">
               <tr>
                 <th className="px-3 py-2 font-medium">Titre</th>

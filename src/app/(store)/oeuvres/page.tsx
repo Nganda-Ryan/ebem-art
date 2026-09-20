@@ -42,7 +42,7 @@ export default async function OeuvresPage() {
               <Link
                 key={artwork.id}
                 href={`/oeuvres/${artwork.slug}`}
-                className="group block overflow-hidden rounded-lg border border-gray-200 hover:shadow-md"
+                className="group block overflow-hidden rounded-xl border border-gray-200 hover:shadow-md"
               >
                 {cover ? (
                   // eslint-disable-next-line @next/next/no-img-element

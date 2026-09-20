@@ -34,7 +34,7 @@ function StatusChip({ status }: { status: string }) {
   const style = REQUEST_STATUS[status] ?? REQUEST_STATUS.PENDING;
   return (
     <span
-      className="inline-block rounded-full px-2.5 py-0.5 text-xs font-medium"
+      className="inline-block rounded-xl-full px-2.5 py-0.5 text-xs font-medium"
       style={{ background: style.bg, color: style.color }}
     >
       {style.label}
@@ -190,7 +190,7 @@ export default async function ArtisteOeuvresPage({
 
       {submitted && (
         <div
-          className="mt-8 rounded-lg px-4 py-3 text-sm"
+          className="mt-8 rounded-xl px-4 py-3 text-sm"
           style={{
             background: "#D1FAE5",
             color: "#065F46",
@@ -202,7 +202,7 @@ export default async function ArtisteOeuvresPage({
         </div>
       )}
 
-      <div className="mt-10 grid grid-cols-3 gap-4">
+      <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
         {[
           { value: artworks.length, label: "Œuvres en ligne" },
           { value: pendingCount, label: "En attente de validation" },
@@ -210,7 +210,7 @@ export default async function ArtisteOeuvresPage({
         ].map((stat) => (
           <div
             key={stat.label}
-            className="rounded-lg p-4 text-center md:p-6"
+            className="rounded-xl p-4 text-center md:p-6"
             style={{
               background: COLORS.bgCard,
               border: `1px solid ${COLORS.border}`,
@@ -241,7 +241,7 @@ export default async function ArtisteOeuvresPage({
           {artworks.map((artwork) => (
             <div
               key={artwork.id}
-              className="overflow-hidden rounded-lg"
+              className="overflow-hidden rounded-xl"
               style={{
                 background: COLORS.bgCard,
                 border: `1px solid ${COLORS.border}`,
@@ -268,7 +268,7 @@ export default async function ArtisteOeuvresPage({
                     {artwork.title}
                   </h3>
                   <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"
+                    className="shrink-0 rounded-xl-full px-2 py-0.5 text-[10px] font-medium"
                     style={{
                       background: COLORS.bgAlt,
                       color: COLORS.inkMid,
@@ -295,7 +295,7 @@ export default async function ArtisteOeuvresPage({
         </p>
       ) : (
         <div
-          className="overflow-hidden rounded-lg"
+          className="overflow-hidden rounded-xl"
           style={{ border: `1px solid ${COLORS.border}` }}
         >
           {requests.map((req) => (
@@ -313,7 +313,7 @@ export default async function ArtisteOeuvresPage({
                   <img
                     src={req.imageUrls[0]}
                     alt={req.title}
-                    className="h-14 w-14 rounded-md object-cover"
+                    className="h-14 w-14 rounded-xl-md object-cover"
                   />
                 ) : null}
                 <div>

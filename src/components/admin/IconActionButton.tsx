@@ -39,7 +39,7 @@ export function IconActionButton({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={`inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors disabled:opacity-40 ${variantClass[variant]} ${className}`}
+      className={`inline-flex h-9 w-9 items-center justify-center rounded-xl transition-colors disabled:opacity-40 ${variantClass[variant]} ${className}`}
     >
       <Icon className="h-4 w-4" strokeWidth={1.75} />
     </button>

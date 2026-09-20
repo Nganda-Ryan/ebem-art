@@ -38,7 +38,7 @@ export function LoginForm() {
       <h1 className="text-2xl font-bold">Connexion admin</h1>
 
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {error}
         </div>
       )}
@@ -52,7 +52,7 @@ export function LoginForm() {
           name="email"
           type="email"
           required
-          className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+          className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2"
         />
       </div>
 
@@ -65,14 +65,14 @@ export function LoginForm() {
           name="password"
           type="password"
           required
-          className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+          className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2"
         />
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+        className="w-full rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
       >
         {loading ? "Connexion…" : "Se connecter"}
       </button>

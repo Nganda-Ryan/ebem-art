@@ -18,6 +18,7 @@ export type ExplorerPageProps = {
 
 export function ExplorerPage({ params, labels, artworks }: ExplorerPageProps) {
   const clearHref = explorerHref({ q: "", labels: [], page: 1 });
+  const hasActiveQuery = Boolean(params.q) || params.labels.length > 0;
 
   return (
     <section
@@ -48,6 +49,7 @@ export function ExplorerPage({ params, labels, artworks }: ExplorerPageProps) {
           artworks={artworks.items}
           total={artworks.total}
           onClearHref={clearHref}
+          hasActiveQuery={hasActiveQuery}
         />
 
         <ExplorerPagination params={params} totalPages={artworks.totalPages} />

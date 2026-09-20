@@ -104,7 +104,7 @@ export function RequestDecisionDrawer({
     >
       <div className="space-y-4">
         {error && (
-          <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
             {error}
           </p>
         )}
@@ -115,7 +115,7 @@ export function RequestDecisionDrawer({
               type="button"
               disabled={loading}
               onClick={handleApprove}
-              className="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+              className="rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
             >
               {loading
                 ? "En cours…"
@@ -127,7 +127,7 @@ export function RequestDecisionDrawer({
               type="button"
               disabled={loading}
               onClick={() => setMode("reject")}
-              className="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+              className="rounded-xl border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
             >
               Rejeter
             </button>
@@ -142,7 +142,7 @@ export function RequestDecisionDrawer({
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 rows={4}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500"
+                className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500"
                 placeholder="Expliquez la raison du rejet…"
               />
             </div>
@@ -151,7 +151,7 @@ export function RequestDecisionDrawer({
                 type="button"
                 disabled={loading}
                 onClick={() => setMode("choose")}
-                className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Retour
               </button>
@@ -159,7 +159,7 @@ export function RequestDecisionDrawer({
                 type="button"
                 disabled={loading || !note.trim()}
                 onClick={handleReject}
-                className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                className="flex-1 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
               >
                 {loading ? "En cours…" : "Confirmer le rejet"}
               </button>
@@ -218,7 +218,7 @@ export function RequestDecisionButton({
         onClick={() => setOpen(true)}
         className={
           className ??
-          "inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+          "inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
         }
       >
         <Gavel className="h-4 w-4" />

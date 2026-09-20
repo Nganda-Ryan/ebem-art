@@ -38,7 +38,7 @@ export default async function CommandeSuccesPage({ searchParams }: Props) {
       </p>
 
       {order && (
-        <div className="mt-8 rounded-lg border border-gray-200 p-6 text-left">
+        <div className="mt-8 rounded-xl border border-gray-200 p-6 text-left">
           <p className="text-sm text-gray-500">Commande</p>
           <p className="font-mono text-xs text-gray-400">{order.id}</p>
           <p className="mt-2 text-sm text-gray-500">Statut</p>
@@ -54,7 +54,7 @@ export default async function CommandeSuccesPage({ searchParams }: Props) {
 
       <Link
         href="/oeuvres"
-        className="mt-8 inline-block rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
+        className="mt-8 inline-block rounded-xl bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
       >
         Continuer vos achats
       </Link>

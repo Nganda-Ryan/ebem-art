@@ -32,7 +32,7 @@ export function AddToCartButton({ item, artworkStatus }: Props) {
         <p className="text-sm text-gray-600">Œuvre ajoutée au panier.</p>
         <Link
           href="/panier"
-          className="flex w-full items-center justify-center rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
+          className="flex w-full items-center justify-center rounded-xl bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
         >
           Voir le panier
         </Link>

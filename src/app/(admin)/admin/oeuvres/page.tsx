@@ -35,13 +35,13 @@ export default async function AdminOeuvresPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold">Œuvres</h1>
         <NewArtworkButton artists={artistOptions} labels={labelOptions} />
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-lg border border-gray-200">
-        <table className="w-full text-left text-sm">
+      <div className="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+        <table className="w-full min-w-[44rem] text-left text-sm">
           <thead className="bg-gray-50 text-gray-600">
             <tr>
               <th className="px-4 py-3">Titre</th>
@@ -67,10 +67,10 @@ export default async function AdminOeuvresPage() {
                         <img
                           src={cover}
                           alt=""
-                          className="h-10 w-10 rounded object-cover"
+                          className="h-10 w-10 rounded-xl object-cover"
                         />
                       ) : (
-                        <span className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-[10px] text-gray-400">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-[10px] text-gray-400">
                           —
                         </span>
                       )}

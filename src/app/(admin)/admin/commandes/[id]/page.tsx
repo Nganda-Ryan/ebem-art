@@ -36,7 +36,7 @@ export default async function AdminOrderDetailPage({
         <div>
           <h1 className="text-2xl font-bold">Commande</h1>
           <p className="mt-1 font-mono text-xs text-gray-500">{order.id}</p>
-          <span className="mt-2 inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+          <span className="mt-2 inline-block rounded-xl-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
             {STATUS_LABEL[order.status] ?? order.status}
           </span>
         </div>
@@ -45,7 +45,7 @@ export default async function AdminOrderDetailPage({
         )}
       </div>
 
-      <section className="mt-8 rounded-lg border border-gray-200 p-5">
+      <section className="mt-8 rounded-xl border border-gray-200 p-5">
         <dl className="grid gap-4 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-gray-500">Email</dt>
@@ -74,8 +74,8 @@ export default async function AdminOrderDetailPage({
 
       <section className="mt-8">
         <h2 className="text-lg font-semibold">Articles</h2>
-        <div className="mt-4 overflow-hidden rounded-lg border border-gray-200">
-          <table className="w-full text-left text-sm">
+        <div className="mt-4 overflow-x-auto rounded-xl border border-gray-200">
+          <table className="w-full min-w-[28rem] text-left text-sm">
             <thead className="bg-gray-50 text-gray-600">
               <tr>
                 <th className="px-4 py-3">Œuvre</th>

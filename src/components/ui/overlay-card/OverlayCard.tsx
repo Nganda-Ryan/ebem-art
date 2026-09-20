@@ -30,9 +30,9 @@ export function OverlayCard({
   return (
     <Link
       href={href}
-      className="group block aspect-3/4 w-full overflow-hidden rounded-[22px] bg-[#0C0A08] outline-none transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-(--color-mboa-terra)"
+      className="group block aspect-3/4 w-full overflow-hidden rounded-xl-[22px] bg-[#0C0A08] outline-none transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-(--color-mboa-terra)"
     >
-      <div className="relative h-full w-full overflow-hidden rounded-[22px]">
+      <div className="relative h-full w-full overflow-hidden rounded-xl-[22px]">
         {imageUrl ? (
           <div className="absolute inset-0 scale-[1.03] transition-transform duration-700 group-hover:scale-[1.06]">
             <Image

@@ -15,7 +15,7 @@ export async function getPublishedArtists() {
 /** Get a single artist by slug (public) */
 export async function getArtistBySlug(slug: string) {
   try {
-    return await db.artist.findUnique({
+    const artist = await db.artist.findUnique({
       where: { slug },
       include: {
         artworks: {
@@ -24,6 +24,8 @@ export async function getArtistBySlug(slug: string) {
         },
       },
     });
+    if (!artist || !artist.published) return null;
+    return artist;
   } catch {
     return null;
   }

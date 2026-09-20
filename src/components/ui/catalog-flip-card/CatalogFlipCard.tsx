@@ -75,7 +75,7 @@ export function CatalogFlipCard({
         onPointerDown={stopFlip}
         onPointerUp={stopFlip}
         disabled={!ready}
-        className="w-full px-3 py-2.5 font-mono text-[10px] tracking-wider text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="w-full px-3 py-2.5 font-mono text-[10px] tracking-wider text-white transition-opacity hover:opacity-90 disabled:opacity-50 rounded-lg overflow-hidden"
         style={{ background: COLORS.terra }}
       >
         AJOUTER AU PANIER
@@ -87,7 +87,7 @@ export function CatalogFlipCard({
       onClick={stopFlip}
       onPointerDown={stopFlip}
       onPointerUp={stopFlip}
-      className="inline-flex w-full items-center justify-center px-3 py-2.5 font-mono text-[10px] tracking-wider text-white transition-opacity hover:opacity-90"
+      className="inline-flex w-full items-center justify-center px-3 py-2.5 font-mono text-[10px] tracking-wider text-white transition-opacity hover:opacity-90 rounded-lg overflow-hidden"
       style={{ background: COLORS.terra }}
     >
       {frontActionLabel}
@@ -199,7 +199,7 @@ export function CatalogFlipCard({
         damping={18}
         width="100%"
         height="100%"
-        radius={22}
+        radius={12}
         background="#0C0A08"
         color="#f5f5f5"
         shadow

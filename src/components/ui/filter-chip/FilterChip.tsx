@@ -16,7 +16,7 @@ export function FilterChip({ label, active, onClick, tone = "terra" }: FilterChi
     <button
       type="button"
       onClick={onClick}
-      className="px-4 py-2 text-xs font-medium tracking-wider transition-all"
+      className="px-4 py-2 text-xs font-medium tracking-wider transition-all rounded-lg overflow-hidden"
       style={{
         background: active ? activeBg : tone === "terra" ? COLORS.bgCard : "transparent",
         color: active ? activeColor : COLORS.muted,

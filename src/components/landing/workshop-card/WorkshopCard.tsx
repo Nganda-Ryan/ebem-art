@@ -17,7 +17,7 @@ export function WorkshopCard({ workshop, revealDelay = 1 }: WorkshopCardProps) {
 
   return (
     <div
-      className={`reveal reveal-delay-${revealDelay} flex flex-col overflow-hidden`}
+      className={`reveal reveal-delay-${revealDelay} flex flex-col overflow-hidden rounded-xl`}
       style={{ border: `1px solid ${COLORS.border}`, background: COLORS.bgCard }}
     >
       <div className="relative overflow-hidden pb-[55%]">
@@ -69,9 +69,9 @@ export function WorkshopCard({ workshop, revealDelay = 1 }: WorkshopCardProps) {
             </span>
             <span>{pct}% rempli</span>
           </div>
-          <div className="h-1 w-full rounded" style={{ background: COLORS.border }}>
+          <div className="h-1 w-full rounded-xl" style={{ background: COLORS.border }}>
             <div
-              className="h-1 rounded transition-all"
+              className="h-1 rounded-xl transition-all"
               style={{ width: `${pct}%`, background: pct > 80 ? COLORS.terra : COLORS.gold }}
             />
           </div>

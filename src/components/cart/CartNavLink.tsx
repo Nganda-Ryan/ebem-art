@@ -21,7 +21,7 @@ export function CartNavLink({ iconColor, className = "p-2.5" }: Props) {
     >
       <CartIcon />
       {ready && count > 0 ? (
-        <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#C55C2E] px-1 text-[10px] font-semibold text-white">
+        <span className="absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-xl-full bg-[#C55C2E] px-1 text-[10px] font-semibold text-white">
           {count > 9 ? "9+" : count}
         </span>
       ) : null}

@@ -57,7 +57,7 @@ export function AdminDrawer({
                 </DrawerDescription>
               )}
             </div>
-            <DrawerClose className="rounded px-2 py-1 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+            <DrawerClose className="rounded-xl px-2 py-1 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-800">
               Fermer
             </DrawerClose>
           </div>

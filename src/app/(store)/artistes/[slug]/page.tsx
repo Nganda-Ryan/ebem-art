@@ -23,23 +23,23 @@ export default async function ArtistDetailPage({ params }: Props) {
   const portrait = artistPortraitUrl(artist);
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-12">
+    <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
       <div className="flex flex-col gap-8 md:flex-row">
         {portrait ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={portrait}
             alt={artist.name}
-            className="h-80 w-80 rounded-lg object-cover"
+            className="aspect-square w-full max-w-80 rounded-xl object-cover"
           />
         ) : (
-          <div className="flex h-80 w-80 items-center justify-center rounded-lg bg-gray-100 text-sm text-gray-400">
+          <div className="flex aspect-square w-full max-w-80 items-center justify-center rounded-xl bg-gray-100 text-sm text-gray-400">
             Pas de portrait
           </div>
         )}
-        <div>
-          <h1 className="text-3xl font-bold">{artist.name}</h1>
-          <div className="mt-2 flex gap-3 text-sm text-gray-500">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold sm:text-3xl">{artist.name}</h1>
+          <div className="mt-2 flex flex-wrap gap-3 text-sm text-gray-500">
             {artist.city && <span>{artist.city}</span>}
             {artist.discipline && <span>· {artist.discipline}</span>}
           </div>
@@ -49,7 +49,7 @@ export default async function ArtistDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {artist.artworks.length > 0 && (
+      {artist.artworks.length > 0 ? (
         <>
           <h2 className="mt-12 text-2xl font-semibold">Œuvres</h2>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -59,7 +59,7 @@ export default async function ArtistDetailPage({ params }: Props) {
                 <Link
                   key={artwork.id}
                   href={`/oeuvres/${artwork.slug}`}
-                  className="group block overflow-hidden rounded-lg border border-gray-200 hover:shadow-md"
+                  className="group block overflow-hidden rounded-xl border border-gray-200 hover:shadow-md"
                 >
                   {cover ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -86,6 +86,10 @@ export default async function ArtistDetailPage({ params }: Props) {
             })}
           </div>
         </>
+      ) : (
+        <p className="mt-12 text-sm text-gray-500">
+          Aucune œuvre disponible pour cet artiste pour le moment.
+        </p>
       )}
     </section>
   );

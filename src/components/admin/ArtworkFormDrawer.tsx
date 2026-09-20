@@ -56,7 +56,7 @@ function slugify(value: string) {
 }
 
 const inputClass =
-  "mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500";
+  "mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-500";
 
 const STATUS_LABELS: Record<string, string> = {
   AVAILABLE: "Disponible",
@@ -170,7 +170,7 @@ export function ArtworkFormDrawer({
     >
       <form key={formKey} onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
             {error}
           </p>
         )}
@@ -301,7 +301,7 @@ export function ArtworkFormDrawer({
             name="published"
             type="checkbox"
             defaultChecked={initial?.published ?? false}
-            className="rounded border-gray-300"
+            className="rounded-xl border-gray-300"
           />
           Publiée sur le catalogue (indépendant de l&apos;approbation)
         </label>
@@ -323,7 +323,7 @@ export function ArtworkFormDrawer({
                     key={label.id}
                     type="button"
                     onClick={() => toggleLabel(label.id)}
-                    className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                    className={`rounded-xl-full border px-3 py-1 text-xs font-medium transition-colors ${
                       checked
                         ? "border-gray-900 bg-gray-900 text-white"
                         : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -369,14 +369,14 @@ export function ArtworkFormDrawer({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Annuler
           </button>
           <button
             type="submit"
             disabled={loading || artists.length === 0}
-            className="flex-1 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+            className="flex-1 rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
           >
             {loading ? "Enregistrement…" : isEdit ? "Enregistrer" : "Créer"}
           </button>
