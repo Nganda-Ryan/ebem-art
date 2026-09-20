@@ -33,7 +33,7 @@ export default async function ArtistesPage() {
         Rencontrez les artistes derrière les œuvres.
       </p>
 
-      <div
+      {/* <div
         className="mt-8 flex flex-col items-start justify-between gap-4 rounded-xl p-6 md:flex-row md:items-center md:p-8"
         style={{
           background: "var(--color-mboa-bg-alt, #EDE7DC)",
@@ -63,7 +63,7 @@ export default async function ArtistesPage() {
         >
           DEVENIR ARTISTE
         </Link>
-      </div>
+      </div> */}
 
       {artists.length === 0 ? (
         <div className="mt-16 py-8 text-center">
