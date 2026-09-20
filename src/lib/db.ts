@@ -9,7 +9,16 @@ function createPrismaClient() {
     throw new Error("DATABASE_URL is not set");
   }
 
-  const adapter = new PrismaPg({ connectionString });
+  // Supabase / remote Postgres: avoid TLS chain failures on serverless (Vercel).
+  const isLocal =
+    connectionString.includes("127.0.0.1") ||
+    connectionString.includes("localhost");
+
+  const adapter = new PrismaPg({
+    connectionString,
+    ...(isLocal ? {} : { ssl: { rejectUnauthorized: false } }),
+  });
+
   return new PrismaClient({ adapter });
 }
 
