@@ -3,7 +3,15 @@
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/admin";
-import { artistSchema, type ArtistInput } from "./schemas";
+import { getSession } from "@/lib/auth";
+import {
+  artistSchema,
+  artistProfileSchema,
+  isArtistProfileComplete,
+  type ArtistInput,
+  type ArtistProfileInput,
+} from "./schemas";
+import { getArtistForUser } from "./queries";
 
 export type ActionResult = { ok: true } | { ok: false; error: string };
 
@@ -22,6 +30,8 @@ function revalidateArtistPaths(id?: string, slug?: string) {
   revalidatePath("/artistes");
   if (slug) revalidatePath(`/artistes/${slug}`);
   revalidatePath("/explorer");
+  revalidatePath("/artiste/oeuvres");
+  revalidatePath("/artiste/profil");
 }
 
 /** Create a new artist (admin) */
@@ -147,6 +157,66 @@ export async function setArtistBanned(
     return {
       ok: false,
       error: err instanceof Error ? err.message : "Action impossible.",
+    };
+  }
+}
+
+/** Artiste connecté : met à jour son profil ; publie s'il est complet. */
+export async function updateMyArtistProfile(
+  data: ArtistProfileInput
+): Promise<ActionResult & { published?: boolean }> {
+  try {
+    const session = await getSession();
+    if (!session) {
+      return { ok: false, error: "Vous devez être connecté." };
+    }
+
+    const artist = await getArtistForUser({
+      id: session.user.id,
+      email: session.user.email,
+    });
+    if (!artist) {
+      return {
+        ok: false,
+        error: "Aucun profil artiste associé à ce compte.",
+      };
+    }
+
+    const parsed = artistProfileSchema.parse(data);
+    const complete = isArtistProfileComplete(parsed);
+    const displayName = parsed.artistName.trim();
+
+    const updated = await db.artist.update({
+      where: { id: artist.id },
+      data: {
+        firstName: parsed.firstName,
+        lastName: parsed.lastName,
+        artistName: parsed.artistName,
+        name: displayName,
+        birthDate: parsed.birthDate ? new Date(parsed.birthDate) : null,
+        birthPlace: parsed.birthPlace || null,
+        culturalStatus: parsed.culturalStatus || null,
+        bio: parsed.bio,
+        phone: parsed.phone,
+        whatsapp: parsed.whatsapp || null,
+        city: parsed.city,
+        region: parsed.region,
+        discipline: parsed.discipline || null,
+        profilePhotoUrl: parsed.profilePhotoUrl,
+        portraitUrl: parsed.profilePhotoUrl,
+        published: complete,
+        ...(artist.userId ? {} : { userId: session.user.id }),
+      },
+      select: { id: true, slug: true, published: true },
+    });
+
+    revalidateArtistPaths(updated.id, updated.slug);
+    return { ok: true, published: updated.published };
+  } catch (err) {
+    return {
+      ok: false,
+      error:
+        err instanceof Error ? err.message : "Mise à jour du profil impossible.",
     };
   }
 }

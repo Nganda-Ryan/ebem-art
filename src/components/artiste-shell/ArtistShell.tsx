@@ -48,12 +48,18 @@ function SidebarBody({
           className="mb-1 px-3 text-xs font-semibold uppercase tracking-wider"
           style={{ color: COLORS.muted }}
         >
-          Œuvres
+          Espace
         </div>
         <NavLink
           href="/artiste/oeuvres"
           label="Mes œuvres"
           active={pathname.startsWith("/artiste/oeuvres")}
+          onNavigate={onNavigate}
+        />
+        <NavLink
+          href="/artiste/profil"
+          label="Mon profil"
+          active={pathname.startsWith("/artiste/profil")}
           onNavigate={onNavigate}
         />
       </nav>

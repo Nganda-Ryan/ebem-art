@@ -1,13 +1,10 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { COLORS } from "@/constants/colors";
 import { FILTER_REGIONS } from "@/data/mock";
-import {
-  ImageUpload,
-  type ImageUploadHandle,
-} from "@/components/ui/image-upload";
 
 const INPUT_STYLE = {
   background: COLORS.bgCard,
@@ -51,13 +48,17 @@ function Input({
   type = "text",
   placeholder,
   required = false,
-  defaultValue,
+  minLength,
+  autoComplete,
+  className = "",
 }: {
   name: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
-  defaultValue?: string;
+  minLength?: number;
+  autoComplete?: string;
+  className?: string;
 }) {
   return (
     <input
@@ -65,46 +66,18 @@ function Input({
       type={type}
       placeholder={placeholder}
       required={required}
-      defaultValue={defaultValue}
-      className="w-full px-4 py-3 text-sm outline-none"
+      minLength={minLength}
+      autoComplete={autoComplete}
+      className={`w-full px-4 py-3 text-sm outline-none ${className}`}
       style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
     />
   );
 }
 
-function Select({
-  name,
-  options,
-  required = false,
-  defaultValue,
-}: {
-  name: string;
-  options: { value: string; label: string }[];
-  required?: boolean;
-  defaultValue?: string;
-}) {
-  return (
-    <select
-      name={name}
-      required={required}
-      defaultValue={defaultValue}
-      className="w-full px-4 py-3 text-sm outline-none"
-      style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
-    >
-      <option value="">Sélectionner...</option>
-      {options.map((opt) => (
-        <option key={opt.value} value={opt.value}>
-          {opt.label}
-        </option>
-      ))}
-    </select>
-  );
-}
-
 export function InscriptionForm() {
   const router = useRouter();
-  const photoRef = useRef<ImageUploadHandle>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -113,29 +86,28 @@ export function InscriptionForm() {
 
     const form = e.currentTarget;
     const fd = new FormData(form);
+    const password = fd.get("password") as string;
+    const passwordConfirm = fd.get("passwordConfirm") as string;
+
+    if (password !== passwordConfirm) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
 
     startTransition(async () => {
       try {
-        const urls = (await photoRef.current?.ensureUploaded()) ?? [];
-        const profilePhotoUrl = urls[0] || null;
-
         const res = await fetch("/api/artist-requests", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             firstName: fd.get("firstName") as string,
             lastName: fd.get("lastName") as string,
-            birthDate: (fd.get("birthDate") as string) || null,
-            birthPlace: (fd.get("birthPlace") as string) || null,
             artistName: fd.get("artistName") as string,
-            culturalStatus: (fd.get("culturalStatus") as string) || null,
-            bio: fd.get("bio") as string,
-            phone: fd.get("phone") as string,
-            whatsapp: (fd.get("whatsapp") as string) || null,
             email: fd.get("email") as string,
+            password,
+            phone: fd.get("phone") as string,
             city: fd.get("city") as string,
             region: fd.get("region") as string,
-            profilePhotoUrl,
           }),
         });
 
@@ -164,127 +136,121 @@ export function InscriptionForm() {
         className="rounded-xl p-6 md:p-8"
         style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
       >
-        <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
-          Identité & Informations personnelles
+        <h2 className="mb-2 font-serif text-xl" style={{ color: COLORS.ink }}>
+          Qui êtes-vous ?
         </h2>
+        <p className="mb-6 text-sm" style={{ color: COLORS.muted }}>
+          Ces informations suffisent pour ouvrir votre dossier. Le profil
+          complet se remplit après approbation.
+        </p>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <FieldGroup label="PRÉNOM *">
-            <Input name="firstName" placeholder="Ex: Élise" required />
+            <Input
+              name="firstName"
+              placeholder="Ex: Élise"
+              required
+              autoComplete="given-name"
+            />
           </FieldGroup>
           <FieldGroup label="NOM *">
-            <Input name="lastName" placeholder="Ex: Nkemdifor" required />
-          </FieldGroup>
-          <FieldGroup label="DATE DE NAISSANCE">
-            <Input name="birthDate" type="date" />
-          </FieldGroup>
-          <FieldGroup label="LIEU DE NAISSANCE">
-            <Input name="birthPlace" placeholder="Ex: Douala, Cameroun" />
-          </FieldGroup>
-        </div>
-      </div>
-
-      <div
-        className="rounded-xl p-6 md:p-8"
-        style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
-      >
-        <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
-          Profil Artiste
-        </h2>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <FieldGroup
-            label="NOM D'ARTISTE *"
-            hint="Le nom sous lequel vos œuvres seront affichées"
-          >
-            <Input name="artistName" placeholder="Ex: Élise Nkemdifor" required />
-          </FieldGroup>
-          <FieldGroup
-            label="STATUT CULTUREL"
-            hint="N° carte d'artiste, affiliation MINAC, SOCADAP..."
-          >
-            <Input name="culturalStatus" placeholder="Ex: Membre SOCADAP" />
-          </FieldGroup>
-          <div className="md:col-span-2">
-            <FieldGroup
-              label="PROFIL ARTISTIQUE & STORYTELLING *"
-              hint="Parlez de votre parcours, votre pratique, ce qui anime votre travail"
-            >
-              <textarea
-                name="bio"
-                required
-                rows={5}
-                minLength={20}
-                className="w-full px-4 py-3 text-sm outline-none"
-                style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
-                placeholder="Ex: Formée à l'École des Beaux-Arts de Yaoundé, je sculpte l'argile rouge des Hauts Plateaux..."
-              />
-            </FieldGroup>
-          </div>
-          <div className="md:col-span-2">
-            <FieldGroup
-              label="PHOTO DE PROFIL / ATELIER"
-              hint="Photo de vous ou de votre atelier — utilisée pour vérifier votre identité (KYC)"
-            >
-              <ImageUpload
-                ref={photoRef}
-                name="profilePhotoUrl"
-                folder="profile"
-              />
-            </FieldGroup>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="rounded-xl p-6 md:p-8"
-        style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
-      >
-        <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
-          Contact
-        </h2>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <FieldGroup label="TÉLÉPHONE PRINCIPAL *">
             <Input
-              name="phone"
-              type="tel"
-              placeholder="+237 6XX XXX XXX"
+              name="lastName"
+              placeholder="Ex: Nkemdifor"
               required
+              autoComplete="family-name"
             />
           </FieldGroup>
-          <FieldGroup
-            label="WHATSAPP"
-            hint="Canal privilégié pour les notifications"
-          >
-            <Input
-              name="whatsapp"
-              type="tel"
-              placeholder="+237 6XX XXX XXX"
-            />
-          </FieldGroup>
+          <div className="md:col-span-2">
+            <FieldGroup
+              label="NOM D'ARTISTE *"
+              hint="Le nom affiché sur la plateforme"
+            >
+              <Input
+                name="artistName"
+                placeholder="Ex: Élise Nkemdifor"
+                required
+              />
+            </FieldGroup>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="rounded-xl p-6 md:p-8"
+        style={{ background: COLORS.bgAlt, border: `1px solid ${COLORS.border}` }}
+      >
+        <h2 className="mb-6 font-serif text-xl" style={{ color: COLORS.ink }}>
+          Compte & contact
+        </h2>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <FieldGroup label="EMAIL *">
             <Input
               name="email"
               type="email"
               placeholder="artiste@email.com"
               required
+              autoComplete="email"
             />
           </FieldGroup>
-          <div className="grid grid-cols-2 gap-5">
-            <FieldGroup label="VILLE *">
-              <Input name="city" placeholder="Ex: Douala" required />
-            </FieldGroup>
-            <FieldGroup label="RÉGION *">
-              <Select
-                name="region"
-                options={FILTER_REGIONS.filter((r) => r !== "Tous").map(
-                  (r) => ({
-                    value: r,
-                    label: r,
-                  })
-                )}
+          <FieldGroup label="TÉLÉPHONE *">
+            <Input
+              name="phone"
+              type="tel"
+              placeholder="+237 6XX XXX XXX"
+              required
+              autoComplete="tel"
+            />
+          </FieldGroup>
+          <FieldGroup label="MOT DE PASSE *">
+            <div className="relative">
+              <Input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
                 required
+                minLength={5}
+                autoComplete="new-password"
+                className="pr-16"
               />
-            </FieldGroup>
-          </div>
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute top-1/2 right-3 -translate-y-1/2 font-mono text-[10px] tracking-widest uppercase transition-opacity hover:opacity-70"
+                style={{ color: COLORS.muted }}
+              >
+                {showPassword ? "Cacher" : "Voir"}
+              </button>
+            </div>
+          </FieldGroup>
+          <FieldGroup label="CONFIRMER LE MOT DE PASSE *">
+            <Input
+              name="passwordConfirm"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              required
+              minLength={5}
+              autoComplete="new-password"
+            />
+          </FieldGroup>
+          <FieldGroup label="VILLE *">
+            <Input name="city" placeholder="Ex: Douala" required />
+          </FieldGroup>
+          <FieldGroup label="RÉGION *">
+            <select
+              name="region"
+              required
+              defaultValue=""
+              className="w-full px-4 py-3 text-sm outline-none"
+              style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
+            >
+              <option value="">Sélectionner...</option>
+              {FILTER_REGIONS.filter((r) => r !== "Tous").map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
+          </FieldGroup>
         </div>
       </div>
 
@@ -307,12 +273,23 @@ export function InscriptionForm() {
         className="w-full px-6 py-3.5 font-mono text-xs tracking-wider text-white transition-opacity hover:opacity-90 disabled:opacity-50"
         style={{ background: COLORS.terra }}
       >
-        {isPending ? "ENVOI EN COURS..." : "SOUMETTRE MA DEMANDE"}
+        {isPending ? "CRÉATION EN COURS..." : "CRÉER MON COMPTE ARTISTE"}
       </button>
 
+      <p className="text-center text-sm" style={{ color: COLORS.muted }}>
+        Déjà inscrit ?{" "}
+        <Link
+          href="/connexion"
+          className="font-medium underline underline-offset-4"
+          style={{ color: COLORS.ink }}
+        >
+          Se connecter
+        </Link>
+      </p>
+
       <p className="text-center text-xs" style={{ color: COLORS.muted }}>
-        Votre demande sera examinée par notre équipe. Vous serez notifié par
-        email et WhatsApp de la décision.
+        Après examen de votre dossier, complétez votre profil pour publier vos
+        œuvres.
       </p>
     </form>
   );

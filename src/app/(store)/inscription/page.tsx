@@ -31,9 +31,9 @@ export default function InscriptionPage() {
             className="mt-4 max-w-xl text-sm"
             style={{ color: "var(--color-mboa-muted)", lineHeight: 1.75 }}
           >
-            Remplissez le formulaire ci-dessous pour soumettre votre demande
-            d&apos;inscription. Une fois approuvé, vous pourrez créer votre
-            profil et soumettre vos œuvres.
+            Créez votre compte avec quelques informations essentielles. Après
+            approbation, complétez votre profil dans l&apos;espace artiste pour
+            publier vos œuvres.
           </p>
         </div>
 

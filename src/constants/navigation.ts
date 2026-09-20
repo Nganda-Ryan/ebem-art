@@ -6,7 +6,6 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Explorer", href: "/explorer" },
   { label: "Artistes", href: "/artistes" },
   { label: "Actualité", href: "/#actualite" },
-  { label: "S'inscrire", href: "/inscription" },
   { label: "Contact", href: "/#newsletter" },
 ];
 
@@ -25,7 +24,6 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     title: "Participer",
     links: [
       { label: "Ateliers", href: "/#ateliers" },
-      { label: "Devenir Artiste", href: "/inscription" },
       { label: "Espace Artiste", href: "/connexion" },
       { label: "Soumettre une œuvre", href: "/artiste/oeuvres" },
       { label: "Presse", href: "#" },

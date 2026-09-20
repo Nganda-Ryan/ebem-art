@@ -6,7 +6,7 @@ import { ArtworkSubmissionDrawer } from "@/components/landing/artwork-submission
 import { LogoutButton } from "@/components/LogoutButton";
 import { getArtworkRequestsByArtistId } from "@/modules/artwork-requests";
 import { getArtworksByArtistId } from "@/modules/artworks";
-import { getArtistForUser } from "@/modules/artists";
+import { getArtistForUser, isArtistProfileComplete } from "@/modules/artists";
 
 export const metadata = {
   title: "Mes œuvres - Espace Artiste",
@@ -169,6 +169,8 @@ export default async function ArtisteOeuvresPage({
 
   const pendingCount = requests.filter((r) => r.status === "PENDING").length;
   const rejectedCount = requests.filter((r) => r.status === "REJECTED").length;
+  const profileComplete = isArtistProfileComplete(artist);
+  const canSubmitWorks = profileComplete && artist.published;
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -182,11 +184,36 @@ export default async function ArtisteOeuvresPage({
             après validation par notre équipe.
           </p>
         </div>
-        <ArtworkSubmissionDrawer
-          artistId={artist.id}
-          artistName={artist.name}
-        />
+        {canSubmitWorks ? (
+          <ArtworkSubmissionDrawer
+            artistId={artist.id}
+            artistName={artist.name}
+          />
+        ) : null}
       </div>
+
+      {!canSubmitWorks ? (
+        <div
+          className="mt-8 rounded-xl px-4 py-4 text-sm"
+          style={{
+            background: "#FEF3C7",
+            color: "#92400E",
+            border: "1px solid #FDE68A",
+          }}
+        >
+          <p className="font-medium">Profil à compléter</p>
+          <p className="mt-1">
+            Avant de soumettre des œuvres, complétez et publiez votre profil
+            artiste.
+          </p>
+          <Link
+            href="/artiste/profil"
+            className="mt-3 inline-flex font-mono text-xs tracking-wider underline underline-offset-4"
+          >
+            COMPLÉTER MON PROFIL →
+          </Link>
+        </div>
+      ) : null}
 
       {submitted && (
         <div

@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { COLORS } from "@/constants/colors";
 import { authClient } from "@/lib/auth-client";
 
 type Espace = "artiste" | "admin";
-type Mode = "login" | "signup";
 
 const inputClassName =
   "w-full border px-4 py-3.5 text-[0.9375rem] outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-mboa-muted focus:border-mboa-terra focus:shadow-[0_0_0_3px_rgba(197,92,46,0.18)]";
@@ -23,23 +23,18 @@ export function ConnexionPortal() {
     searchParams.get("espace") === "admin" ? "admin" : "artiste";
 
   const [espace, setEspace] = useState<Espace>(initialEspace);
-  const [mode, setMode] = useState<Mode>("login");
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     const next = searchParams.get("espace") === "admin" ? "admin" : "artiste";
     setEspace(next);
-    if (next === "admin") setMode("login");
   }, [searchParams]);
 
   function switchEspace(next: Espace) {
     setEspace(next);
-    setMode("login");
     setError(null);
-    setInfo(null);
     setShowPassword(false);
     const url = new URL(window.location.href);
     if (next === "admin") url.searchParams.set("espace", "admin");
@@ -47,40 +42,20 @@ export function ConnexionPortal() {
     window.history.replaceState(null, "", url.pathname + url.search);
   }
 
-  function switchMode(next: Mode) {
-    setMode(next);
-    setError(null);
-    setInfo(null);
-  }
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
-    setInfo(null);
     setLoading(true);
 
     const fd = new FormData(e.currentTarget);
     const email = fd.get("email") as string;
     const password = fd.get("password") as string;
 
-    const result =
-      mode === "login"
-        ? await authClient.signIn.email({ email, password })
-        : await authClient.signUp.email({
-            email,
-            password,
-            name: (fd.get("name") as string) || email,
-          });
+    const result = await authClient.signIn.email({ email, password });
 
     if (result.error) {
       setLoading(false);
-      setError(
-        mode === "login"
-          ? "Email ou mot de passe incorrect."
-          : "Impossible de créer le compte. " +
-              (result.error.message ??
-                "Ce compte existe peut-être déjà — essayez de vous connecter.")
-      );
+      setError("Email ou mot de passe incorrect.");
       return;
     }
 
@@ -88,20 +63,10 @@ export function ConnexionPortal() {
     const role = sessionData?.user?.role;
 
     if (espace === "admin") {
-      if (mode === "signup") {
-        setLoading(false);
-        setMode("login");
-        setInfo(
-          "Compte créé. Un administrateur doit activer vos droits avant l’accès au tableau de bord."
-        );
-        await authClient.signOut();
-        return;
-      }
-
       if (role !== "admin") {
         setLoading(false);
         setError(
-          "Ce compte n’a pas les droits administrateur. Revenez à l’espace artiste, ou demandez l’activation admin."
+          "Ce compte n’a pas les droits administrateur. Revenez à l’espace artiste."
         );
         await authClient.signOut();
         return;
@@ -123,14 +88,10 @@ export function ConnexionPortal() {
   }
 
   const isAdmin = espace === "admin";
-  const isSignup = mode === "signup";
 
   return (
     <div className="w-full">
-      <div
-        key={`${espace}-${mode}`}
-        className="animate-[connexion-in_0.35s_ease-out]"
-      >
+      <div key={espace} className="animate-[connexion-in_0.35s_ease-out]">
         <p
           className="font-mono text-[11px] tracking-[0.22em]"
           style={{ color: COLORS.terra }}
@@ -141,50 +102,19 @@ export function ConnexionPortal() {
           className="mt-3 font-serif text-3xl leading-tight md:text-4xl"
           style={{ color: COLORS.ink }}
         >
-          {isSignup
-            ? isAdmin
-              ? "Créer un compte"
-              : "Créer votre compte"
-            : "Bon retour"}
+          Bon retour
         </h2>
         <p
           className="mt-3 max-w-[36ch] text-sm leading-relaxed"
           style={{ color: COLORS.muted }}
         >
           {isAdmin
-            ? isSignup
-              ? "L’accès au tableau de bord sera activé par un administrateur existant."
-              : "Connectez-vous pour gérer la plateforme Mboa Arts."
-            : isSignup
-              ? "Utilisez l’email déclaré dans votre demande d’inscription pour être rattaché à votre profil."
-              : "Gérez vos œuvres, vos demandes et votre profil."}
+            ? "Connectez-vous pour gérer la plateforme Mboa Arts."
+            : "Gérez vos œuvres, vos demandes et votre profil."}
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
-        {isSignup ? (
-          <Field
-            label={isAdmin ? "Nom" : "Nom / nom d’artiste"}
-            htmlFor="connexion-name"
-          >
-            <input
-              id="connexion-name"
-              name="name"
-              type="text"
-              required
-              autoComplete="name"
-              placeholder={isAdmin ? "Votre nom" : "Ex. Élise Nkemdifor"}
-              className={inputClassName}
-              style={{
-                background: COLORS.bgCard,
-                borderColor: COLORS.border,
-                color: COLORS.ink,
-                fontFamily: "var(--sans)",
-              }}
-            />
-          </Field>
-        ) : null}
-
         <Field label="Email" htmlFor="connexion-email">
           <input
             id="connexion-email"
@@ -211,7 +141,7 @@ export function ConnexionPortal() {
               type={showPassword ? "text" : "password"}
               required
               minLength={5}
-              autoComplete={isSignup ? "new-password" : "current-password"}
+              autoComplete="current-password"
               placeholder="••••••••"
               className={`${inputClassName} pr-16`}
               style={{
@@ -246,31 +176,13 @@ export function ConnexionPortal() {
           </div>
         ) : null}
 
-        {info ? (
-          <div
-            role="status"
-            className="rounded-xl-md px-4 py-3 text-sm"
-            style={{
-              background: "#ECFDF5",
-              color: "#065F46",
-              border: "1px solid #A7F3D0",
-            }}
-          >
-            {info}
-          </div>
-        ) : null}
-
         <button
           type="submit"
           disabled={loading}
           className="mt-1 w-full px-6 py-3.5 text-sm font-medium text-white transition-[background,opacity,transform] duration-200 hover:opacity-95 active:scale-[0.99] disabled:opacity-50"
           style={{ background: COLORS.terra }}
         >
-          {loading
-            ? "Un instant…"
-            : isSignup
-              ? "Créer mon compte"
-              : "Se connecter"}
+          {loading ? "Un instant…" : "Se connecter"}
         </button>
       </form>
 
@@ -278,17 +190,18 @@ export function ConnexionPortal() {
         className="mt-8 space-y-4 border-t pt-6"
         style={{ borderColor: COLORS.border }}
       >
-        <p className="text-sm" style={{ color: COLORS.muted }}>
-          {isSignup ? "Déjà un compte ?" : "Pas encore de compte ?"}{" "}
-          <button
-            type="button"
-            onClick={() => switchMode(isSignup ? "login" : "signup")}
-            className="font-medium underline decoration-transparent underline-offset-4 transition-[text-decoration-color] hover:decoration-current"
-            style={{ color: COLORS.ink }}
-          >
-            {isSignup ? "Se connecter" : "Créer un compte"}
-          </button>
-        </p>
+        {!isAdmin ? (
+          <p className="text-sm" style={{ color: COLORS.muted }}>
+            Pas encore de compte ?{" "}
+            <Link
+              href="/inscription"
+              className="font-medium underline decoration-transparent underline-offset-4 transition-[text-decoration-color] hover:decoration-current"
+              style={{ color: COLORS.ink }}
+            >
+              Devenir artiste
+            </Link>
+          </p>
+        ) : null}
 
         <p className="text-sm" style={{ color: COLORS.muted }}>
           {isAdmin ? (

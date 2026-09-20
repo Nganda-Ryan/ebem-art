@@ -56,21 +56,20 @@ export default async function ConnexionPage({ searchParams }: Props) {
           <p className="mt-3 text-sm" style={{ color: COLORS.muted }}>
             Vous êtes connecté avec{" "}
             <strong style={{ color: COLORS.ink }}>{session.user.email}</strong>
-            . Ce compte n&apos;est pas encore rattaché à un profil artiste, ni
-            activé comme administrateur.
+            . Votre demande d&apos;inscription est peut-être encore en cours
+            d&apos;examen, ou ce compte n&apos;est pas un administrateur.
           </p>
           <p className="mt-2 text-sm" style={{ color: COLORS.muted }}>
-            Soumettez une demande d&apos;inscription artiste, ou demandez
-            l&apos;activation admin. Vous pouvez aussi vous déconnecter pour
-            utiliser un autre compte.
+            Une fois approuvé, complétez votre profil dans l&apos;espace
+            artiste. Vous pouvez aussi vous déconnecter.
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <a
-              href="/inscription"
+              href="/artiste/oeuvres"
               className="px-6 py-3 font-mono text-xs tracking-wider text-white"
               style={{ background: COLORS.terra }}
             >
-              DEVENIR ARTISTE
+              ESPACE ARTISTE
             </a>
             <LogoutButton redirectTo="/connexion" />
           </div>

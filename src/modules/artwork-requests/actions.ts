@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { artworkRequestSchema, type ArtworkRequestInput } from "./schemas";
 import { composeArtworkImageUrls } from "./images";
+import { isArtistProfileComplete } from "@/modules/artists/schemas";
 
 /** Submit a new artwork request (artist) */
 export async function submitArtworkRequest(data: ArtworkRequestInput) {
@@ -17,16 +18,35 @@ export async function submitArtworkRequest(data: ArtworkRequestInput) {
 
   const artist = await db.artist.findUnique({
     where: { id: parsed.artistId },
-    select: { id: true, published: true, userId: true, email: true },
+    select: {
+      id: true,
+      published: true,
+      userId: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      artistName: true,
+      bio: true,
+      phone: true,
+      city: true,
+      region: true,
+      profilePhotoUrl: true,
+    },
   });
 
   if (!artist) {
     throw new Error("Artiste introuvable.");
   }
 
+  if (!isArtistProfileComplete(artist)) {
+    throw new Error(
+      "Complétez votre profil avant de soumettre une œuvre."
+    );
+  }
+
   if (!artist.published) {
     throw new Error(
-      "Votre profil artiste n'est pas encore approuvé. Vous ne pouvez pas soumettre d'œuvres."
+      "Publiez votre profil (complétez-le entièrement) avant de soumettre des œuvres."
     );
   }
 

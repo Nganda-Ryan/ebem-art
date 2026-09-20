@@ -1,18 +1,18 @@
 import { ZodError } from "zod";
-import { artistRequestSchema } from "@/modules/artist-requests/schemas";
-import { createArtistRequestRecord } from "@/modules/artist-requests/service";
+import { artistInscriptionSchema } from "@/modules/artist-requests/schemas";
+import { registerArtistWithRequest } from "@/modules/artist-requests/service";
 
 export const runtime = "nodejs";
 
 /**
  * POST /api/artist-requests
- * Public KYC inscription — avoids Server Action ID skew across deploys.
+ * Inscription artiste — crée le compte + la demande (évite le skew Server Action).
  */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const parsed = artistRequestSchema.parse(body);
-    await createArtistRequestRecord(parsed);
+    const parsed = artistInscriptionSchema.parse(body);
+    await registerArtistWithRequest(parsed, request.headers);
     return Response.json({ ok: true });
   } catch (error) {
     if (error instanceof ZodError) {

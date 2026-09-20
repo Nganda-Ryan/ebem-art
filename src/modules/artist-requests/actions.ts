@@ -4,13 +4,16 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { artistRequestSchema, type ArtistRequestInput } from "./schemas";
-import { createArtistRequestRecord } from "./service";
+import {
+  artistInscriptionSchema,
+  type ArtistInscriptionInput,
+} from "./schemas";
+import { registerArtistWithRequest } from "./service";
 
-/** Submit a new artist KYC request (public) — prefer POST /api/artist-requests in the UI */
-export async function submitArtistRequest(data: ArtistRequestInput) {
-  const parsed = artistRequestSchema.parse(data);
-  await createArtistRequestRecord(parsed);
+/** Submit a new artist inscription (public) — prefer POST /api/artist-requests in the UI */
+export async function submitArtistRequest(data: ArtistInscriptionInput) {
+  const parsed = artistInscriptionSchema.parse(data);
+  await registerArtistWithRequest(parsed);
   redirect("/inscription/merci");
 }
 
@@ -63,9 +66,8 @@ export async function approveArtistRequest(id: string, adminNote?: string) {
       portraitUrl: request.profilePhotoUrl,
       profilePhotoUrl: request.profilePhotoUrl,
       userId: linkedUserId,
-      // KYC approuvé => l'artiste peut soumettre ses œuvres.
-      // Les œuvres restent individuellement modérées avant affichage.
-      published: true,
+      // Approuvé => accès dashboard. Publication après profil complet.
+      published: false,
     },
   });
 
@@ -84,6 +86,7 @@ export async function approveArtistRequest(id: string, adminNote?: string) {
   revalidatePath("/admin/artistes");
   revalidatePath("/artistes");
   revalidatePath("/artiste/oeuvres");
+  revalidatePath("/artiste/profil");
 }
 
 /** Reject an artist request (admin) */
