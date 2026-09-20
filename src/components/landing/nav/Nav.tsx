@@ -32,7 +32,7 @@ export function Nav() {
           : "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-6">
         <a href="/" aria-label={SITE.name} className="shrink-0">
           <BrandMark inverted={!solid} />
         </a>
@@ -87,7 +87,7 @@ export function Nav() {
       </div>
 
       {open ? (
-        <div className="px-6 pb-6 lg:hidden" style={{ background: solid ? COLORS.bg : "#0C0A08" }}>
+        <div className="px-5 pb-6 sm:px-6 lg:hidden" style={{ background: solid ? COLORS.bg : "#0C0A08" }}>
           {NAV_LINKS.map((item) => (
             <a
               key={item.label}

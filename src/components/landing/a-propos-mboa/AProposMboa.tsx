@@ -25,7 +25,7 @@ export function AProposMboa() {
       style={{ background: COLORS.bg, borderColor: COLORS.border }}
       aria-labelledby="a-propos-name"
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
         <div className="reveal grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <figure className="lg:col-span-5">
             <div className="relative aspect-4/5 overflow-hidden">

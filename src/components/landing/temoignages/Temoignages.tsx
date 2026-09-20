@@ -17,12 +17,12 @@ export function Temoignages() {
       className="py-10 md:py-14"
       style={{ background: COLORS.bgAlt, borderTop: `1px solid ${COLORS.border}` }}
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
         <div className="reveal mb-12">
           <span className="font-mono text-xs tracking-widest" style={{ color: COLORS.terra }}>
             {labels.code}
           </span>
-          <h2 className="mt-2 font-serif text-4xl md:text-5xl" style={{ color: COLORS.ink }}>
+          <h2 className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl" style={{ color: COLORS.ink }}>
             {labels.title}
           </h2>
         </div>

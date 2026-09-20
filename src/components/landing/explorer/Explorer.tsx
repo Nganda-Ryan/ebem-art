@@ -25,10 +25,10 @@ export function Explorer() {
     <section
       id="explorer"
       ref={ref}
-      className="py-10 md:py-14"
+      className="overflow-x-clip py-10 md:py-14"
       style={{ background: COLORS.bgAlt, borderTop: `1px solid ${COLORS.border}` }}
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
         <div className="reveal">
           <span className="font-mono text-xs tracking-widest" style={{ color: COLORS.terra }}>
             {labels.code}
@@ -58,7 +58,7 @@ export function Explorer() {
             <div className="text-sm">Ajustez vos filtres pour explorer davantage.</div>
           </div>
         ) : (
-          <div className="reveal reveal-delay-2 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <div className="reveal reveal-delay-2 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
             {filtered.map((work) => (
               <WorkCard key={work.id} work={work} />
             ))}

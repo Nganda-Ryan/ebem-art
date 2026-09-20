@@ -14,7 +14,7 @@ export function Newsletter() {
 
   return (
     <section id="newsletter" ref={ref} className="py-10 md:py-14" style={{ background: COLORS.terra }}>
-      <div className="mx-auto max-w-7xl px-6 md:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-12">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div className="reveal">
             <span className="font-mono text-xs tracking-widest text-white opacity-70">

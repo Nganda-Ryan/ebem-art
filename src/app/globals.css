@@ -99,6 +99,7 @@
 html,
 body {
   min-height: 100%;
+  overflow-x: hidden;
   background-color: var(--color-mboa-bg);
   color: var(--color-mboa-ink);
 }

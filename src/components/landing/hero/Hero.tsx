@@ -26,7 +26,7 @@ export function Hero() {
   }, [slides.length]);
 
   return (
-    <section className="flex min-h-[100svh] flex-col bg-[#0C0A08]">
+    <section className="flex min-h-[100svh] flex-col overflow-x-clip bg-[#0C0A08]">
       <div className="flex flex-1 flex-col lg:flex-row">
         {/* Artwork carousel */}
         <div className="relative order-1 min-h-[44vh] w-full lg:order-2 lg:min-h-0 lg:flex-1">
@@ -79,13 +79,13 @@ export function Hero() {
         </div>
 
         {/* Copy */}
-        <div className="order-2 flex w-full flex-col justify-center bg-[#0C0A08] px-6 py-10 md:px-12 md:py-14 lg:order-1 lg:w-[44%] lg:justify-end lg:pb-14 lg:pt-28 xl:w-[40%]">
+        <div className="order-2 flex w-full min-w-0 flex-col justify-center bg-[#0C0A08] px-5 py-10 sm:px-6 md:px-12 md:py-14 lg:order-1 lg:w-[44%] lg:justify-end lg:pb-14 lg:pt-28 xl:w-[40%]">
           <h1
             className="mb-5 max-w-[12ch] leading-[0.95]"
             style={{
               color: "#FFFFFF",
               fontFamily: "var(--serif)",
-              fontSize: "clamp(2.75rem, 6vw, 5rem)",
+              fontSize: "clamp(2.35rem, 8vw, 5rem)",
             }}
           >
             {HERO.titleLines[0]}
@@ -96,7 +96,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="mb-7 max-w-md text-base md:text-lg"
+            className="mb-7 max-w-md text-[0.95rem] leading-relaxed sm:text-base md:text-lg"
             style={{
               color: "rgba(255,255,255,0.78)",
               lineHeight: 1.75,
@@ -114,7 +114,7 @@ export function Hero() {
             {HERO_STATS.map((stat, index) => (
               <div
                 key={stat.label}
-                className="p-4 md:p-5"
+                className="min-w-0 px-2.5 py-3 sm:p-4 md:p-5"
                 style={{
                   borderRight:
                     index < HERO_STATS.length - 1
@@ -123,19 +123,19 @@ export function Hero() {
                 }}
               >
                 <div
-                  className="mb-1 text-2xl md:text-3xl"
+                  className="mb-1 text-xl sm:text-2xl md:text-3xl"
                   style={{ color: "#FFFFFF", fontFamily: "var(--serif)" }}
                 >
                   {stat.animated ? String(count) : stat.n}
                 </div>
                 <div
-                  className="mb-0.5 text-[10px] font-medium tracking-wider md:text-xs"
+                  className="mb-0.5 text-[9px] font-medium tracking-wider sm:text-[10px] md:text-xs"
                   style={{ color: COLORS.terra, fontFamily: "var(--sans)" }}
                 >
                   {stat.label}
                 </div>
                 <div
-                  className="text-[10px] md:text-xs"
+                  className="text-[9px] leading-snug sm:text-[10px] md:text-xs"
                   style={{ color: "rgba(255,255,255,0.45)", fontFamily: "var(--sans)" }}
                 >
                   {stat.sub}
@@ -144,11 +144,11 @@ export function Hero() {
             ))}
           </div>
 
-          {/* CTAs - always same row */}
-          <div className="flex flex-nowrap items-center gap-3">
+          {/* CTAs - stack on narrow screens to avoid overflow */}
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <Button
               variant="terra"
-              className="shrink-0 whitespace-nowrap px-5 py-3.5 text-xs font-medium tracking-wider sm:px-8 sm:text-sm"
+              className="w-full px-5 py-3.5 text-center text-xs font-medium tracking-wider sm:w-auto sm:px-8 sm:text-sm"
               style={{ fontFamily: "var(--sans)" }}
               onClick={() => {
                 window.location.assign("/explorer");
@@ -158,7 +158,7 @@ export function Hero() {
             </Button>
             <button
               type="button"
-              className="shrink-0 whitespace-nowrap px-5 py-3.5 text-xs font-medium tracking-wider transition-colors sm:px-8 sm:text-sm"
+              className="w-full px-5 py-3.5 text-center text-xs font-medium tracking-wider transition-colors sm:w-auto sm:px-8 sm:text-sm"
               style={{
                 color: "#FFFFFF",
                 border: "1px solid rgba(255,255,255,0.45)",

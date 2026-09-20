@@ -12,17 +12,17 @@ type WorkCardProps = {
 
 export function WorkCard({ work }: WorkCardProps) {
   return (
-    <div className="aspect-3/4 w-full bg-transparent">
+    <div className="aspect-3/4 w-full overflow-hidden bg-transparent">
       <FlipCard
         front={
           <div className="relative h-full w-full">
             {/* Overscan wrapper - Image fill must stay at 100%, so we enlarge the parent. */}
-            <div className="absolute -inset-[3px]">
+            <div className="absolute inset-0 sm:-inset-[3px]">
               <Image
                 src={work.img}
                 alt={work.title}
                 fill
-                sizes="(max-width: 768px) 50vw, 25vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
                 className="object-cover"
               />
             </div>
@@ -34,12 +34,12 @@ export function WorkCard({ work }: WorkCardProps) {
               }}
               aria-hidden
             />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-4 md:p-5">
+            <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-3.5 sm:gap-3 sm:p-4 md:p-5">
               <div>
                 <div className="font-mono text-[10px] tracking-widest text-white/70 uppercase">
                   {work.discipline}
                 </div>
-                <h3 className="mt-1.5 font-serif text-lg leading-tight text-white md:text-xl">
+                <h3 className="mt-1.5 font-serif text-base leading-tight text-white sm:text-lg md:text-xl">
                   {work.title}
                 </h3>
                 <p className="mt-1 text-sm text-white/75">{work.artist}</p>
@@ -95,10 +95,10 @@ export function WorkCard({ work }: WorkCardProps) {
         draggable
         dragDistance={0}
         tilt
-        tiltMax={12}
+        tiltMax={8}
         glare
         glareOpacity={0.22}
-        hoverScale={1.03}
+        hoverScale={1}
         perspective={1100}
         stiffness={170}
         damping={20}
