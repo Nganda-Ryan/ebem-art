@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { COLORS } from "@/constants/colors";
 
 export function LogoutButton({
-  redirectTo = "/admin/login",
+  redirectTo = "/connexion?espace=admin",
 }: {
   redirectTo?: string;
 }) {

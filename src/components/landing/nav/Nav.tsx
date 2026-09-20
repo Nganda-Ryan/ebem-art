@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { COLORS } from "@/constants/colors";
 import { NAV_LINKS } from "@/constants/navigation";
 import { SITE } from "@/constants/site";
 import { CartNavLink } from "@/components/cart/CartNavLink";
+import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { BrandMark } from "@/components/ui/brand-mark";
-import { SearchIcon } from "@/components/ui/icons";
 import { useScrolled } from "@/hooks/use-scrolled";
 
 export function Nav() {
@@ -20,6 +21,7 @@ export function Nav() {
   const linkHover = solid ? COLORS.ink : "#FFFFFF";
   const menuLine = solid ? COLORS.ink : "#FFFFFF";
   const iconColor = solid ? COLORS.ink : "#FFFFFF";
+  const loginColor = solid ? COLORS.ink : "#FFFFFF";
 
   return (
     <nav
@@ -59,35 +61,42 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="flex items-center gap-0.5 sm:gap-1">
+          <GlobalSearch
+            iconColor={iconColor}
+            onOpenChange={(isOpen) => {
+              if (isOpen) setOpen(false);
+            }}
+          />
+          <CartNavLink iconColor={iconColor} />
+          <Link
+            href="/connexion"
+            className="hidden px-2.5 py-2 text-[13px] font-medium tracking-wide transition-opacity hover:opacity-70 sm:inline"
+            style={{ color: loginColor, fontFamily: "var(--sans)" }}
+          >
+            Connexion
+          </Link>
           <button
             type="button"
-            aria-label="Rechercher"
-            className="p-2.5 transition-opacity hover:opacity-70"
-            style={{ color: iconColor }}
+            className="p-2 lg:hidden"
+            aria-label="Menu"
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
           >
-            <SearchIcon />
+            <div className="w-5 space-y-1.5">
+              <span className="block h-px w-full" style={{ background: menuLine }} />
+              <span className="block h-px w-3/4" style={{ background: menuLine }} />
+              <span className="block h-px w-full" style={{ background: menuLine }} />
+            </div>
           </button>
-          <CartNavLink iconColor={iconColor} />
         </div>
-
-        <button
-          type="button"
-          className="p-2 lg:hidden"
-          aria-label="Menu"
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <div className="w-5 space-y-1.5">
-            <span className="block h-px w-full" style={{ background: menuLine }} />
-            <span className="block h-px w-3/4" style={{ background: menuLine }} />
-            <span className="block h-px w-full" style={{ background: menuLine }} />
-          </div>
-        </button>
       </div>
 
       {open ? (
-        <div className="px-5 pb-6 sm:px-6 lg:hidden" style={{ background: solid ? COLORS.bg : "#0C0A08" }}>
+        <div
+          className="px-5 pb-6 sm:px-6 lg:hidden"
+          style={{ background: solid ? COLORS.bg : "#0C0A08" }}
+        >
           {NAV_LINKS.map((item) => (
             <a
               key={item.label}
@@ -103,19 +112,17 @@ export function Nav() {
               {item.label}
             </a>
           ))}
-          <div className="mt-4 flex gap-2">
-            <button
-              type="button"
-              aria-label="Rechercher"
-              className="p-2.5"
-              style={{ color: solid ? COLORS.ink : "#FFFFFF" }}
-            >
-              <SearchIcon />
-            </button>
-            <CartNavLink
-              iconColor={solid ? COLORS.ink : "#FFFFFF"}
-            />
-          </div>
+          <Link
+            href="/connexion"
+            className="mt-4 block py-2 text-sm font-medium tracking-wide sm:hidden"
+            style={{
+              color: solid ? COLORS.ink : "#FFFFFF",
+              fontFamily: "var(--sans)",
+            }}
+            onClick={() => setOpen(false)}
+          >
+            Connexion
+          </Link>
         </div>
       ) : null}
     </nav>

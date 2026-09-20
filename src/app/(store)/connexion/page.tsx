@@ -1,21 +1,30 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { COLORS } from "@/constants/colors";
-import { ArtisteAuthForm } from "@/components/artiste-auth-form";
+import { ConnexionPortal } from "@/components/connexion-portal";
 import { LogoutButton } from "@/components/LogoutButton";
 import { getSession } from "@/lib/auth";
 import { getArtistForUser } from "@/modules/artists";
 
 export const metadata = {
-  title: "Espace Artiste - Mboa Arts",
+  title: "Connexion - Mboa Arts",
   description:
-    "Connectez-vous ou créez votre compte pour soumettre et gérer vos œuvres.",
+    "Connectez-vous ou créez un compte artiste ou administrateur.",
 };
 
-export default async function ConnexionPage() {
+type Props = {
+  searchParams: Promise<{ espace?: string; callbackUrl?: string }>;
+};
+
+export default async function ConnexionPage({ searchParams }: Props) {
+  const params = await searchParams;
   const session = await getSession();
 
   if (session) {
+    if (session.user.role === "admin") {
+      redirect("/admin");
+    }
+
     const artist = await getArtistForUser({
       id: session.user.id,
       email: session.user.email,
@@ -35,33 +44,41 @@ export default async function ConnexionPage() {
             className="font-mono text-xs tracking-widest"
             style={{ color: COLORS.terra }}
           >
-            ESPACE ARTISTE
+            CONNEXION
           </span>
           <h1
             className="mt-2 font-serif text-4xl"
             style={{ color: COLORS.ink }}
           >
-            Mauvais compte
+            Compte en attente
           </h1>
           <p className="mt-3 text-sm" style={{ color: COLORS.muted }}>
             Vous êtes connecté avec{" "}
             <strong style={{ color: COLORS.ink }}>{session.user.email}</strong>
-            {session.user.role === "admin"
-              ? " (compte admin)"
-              : ""}
-            . Ce compte n&apos;a pas de profil artiste.
+            . Ce compte n&apos;est pas encore rattaché à un profil artiste, ni
+            activé comme administrateur.
           </p>
           <p className="mt-2 text-sm" style={{ color: COLORS.muted }}>
-            Déconnectez-vous, puis reconnectez-vous avec l&apos;email de votre
-            demande d&apos;inscription.
+            Soumettez une demande d&apos;inscription artiste, ou demandez
+            l&apos;activation admin. Vous pouvez aussi vous déconnecter pour
+            utiliser un autre compte.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <a
+              href="/inscription"
+              className="px-6 py-3 font-mono text-xs tracking-wider text-white"
+              style={{ background: COLORS.terra }}
+            >
+              DEVENIR ARTISTE
+            </a>
             <LogoutButton redirectTo="/connexion" />
           </div>
         </div>
       </section>
     );
   }
+
+  const isAdminEspace = params.espace === "admin";
 
   return (
     <section
@@ -74,7 +91,7 @@ export default async function ConnexionPage() {
             className="font-mono text-xs tracking-widest"
             style={{ color: COLORS.terra }}
           >
-            ESPACE ARTISTE
+            ACCÈS PLATEFORME
           </span>
           <h1
             className="mt-2 font-serif text-4xl"
@@ -83,7 +100,9 @@ export default async function ConnexionPage() {
             Connexion
           </h1>
           <p className="mt-3 text-sm" style={{ color: COLORS.muted }}>
-            Utilisez l&apos;email déclaré lors de votre inscription artiste.
+            {isAdminEspace
+              ? "Espace administrateur — connexion ou inscription."
+              : "Choisissez votre espace : artiste ou administrateur."}
           </p>
         </div>
 
@@ -93,11 +112,11 @@ export default async function ConnexionPage() {
               className="py-12 text-center text-sm"
               style={{ color: COLORS.muted }}
             >
-              Chargement...
+              Chargement…
             </div>
           }
         >
-          <ArtisteAuthForm />
+          <ConnexionPortal />
         </Suspense>
       </div>
     </section>

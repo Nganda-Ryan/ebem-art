@@ -14,7 +14,8 @@ export async function proxy(request: NextRequest) {
     const session = await getSession();
 
     if (!session || session.user.role !== "admin") {
-      const loginUrl = new URL("/admin/login", request.url);
+      const loginUrl = new URL("/connexion", request.url);
+      loginUrl.searchParams.set("espace", "admin");
       loginUrl.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(loginUrl);
     }

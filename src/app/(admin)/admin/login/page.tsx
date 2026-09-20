@@ -1,14 +1,13 @@
-import { Suspense } from "react";
-import { LoginForm } from "@/components/LoginForm";
+import { redirect } from "next/navigation";
 
-export const metadata = { title: "Connexion - EBEM Admin" };
+type Props = {
+  searchParams: Promise<{ callbackUrl?: string }>;
+};
 
-export default function AdminLoginPage() {
-  return (
-    <section className="flex min-h-screen items-center justify-center">
-      <Suspense>
-        <LoginForm />
-      </Suspense>
-    </section>
-  );
+/** Legacy admin login → unified /connexion portal */
+export default async function AdminLoginPage({ searchParams }: Props) {
+  const { callbackUrl } = await searchParams;
+  const params = new URLSearchParams({ espace: "admin" });
+  if (callbackUrl) params.set("callbackUrl", callbackUrl);
+  redirect(`/connexion?${params.toString()}`);
 }
