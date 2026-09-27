@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { InscriptionForm } from "@/components/landing/inscription-form";
 
 export const metadata = {
-  title: "Inscription Artiste - Mboa Arts",
+  title: "Inscription Artiste - Mboa Art",
   description:
-    "Rejoignez la plateforme Mboa Arts. Inscrivez-vous en tant qu'artiste et soumettez vos œuvres.",
+    "Rejoignez la plateforme Mboa Art. Inscrivez-vous en tant qu'artiste et soumettez vos œuvres.",
 };
 
 export default function InscriptionPage() {

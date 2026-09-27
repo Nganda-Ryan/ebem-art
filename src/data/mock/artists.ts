@@ -8,7 +8,7 @@ export const MOCK_ARTISTS: Artist[] = [
     region: "Ouest",
     city: "Bafoussam",
     age: 26,
-    bio: "Formée à l'École des Beaux-Arts de Yaoundé, Élise sculpte l'argile rouge des Hauts Plateaux pour raconter les migrations et les silences de sa génération. Son travail interroge la mémoire collective à travers des formes organiques.",
+    bio: "Formée à l'École des Beaux-Art de Yaoundé, Élise sculpte l'argile rouge des Hauts Plateaux pour raconter les migrations et les silences de sa génération. Son travail interroge la mémoire collective à travers des formes organiques.",
     quote: "Je ne sculpte pas la terre - je l'interroge.",
     works: 18,
     sold: 12,

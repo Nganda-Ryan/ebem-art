@@ -41,7 +41,7 @@ const DISCIPLINE_OPTIONS = [
   { value: "Gravure", label: "Gravure" },
   { value: "Photographie", label: "Photographie" },
   { value: "Installation", label: "Installation" },
-  { value: "Arts mixtes", label: "Arts mixtes" },
+  { value: "Art mixtes", label: "Art mixtes" },
   { value: "Autre", label: "Autre" },
 ];
 

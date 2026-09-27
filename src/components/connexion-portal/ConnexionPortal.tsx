@@ -109,7 +109,7 @@ export function ConnexionPortal() {
           style={{ color: COLORS.muted }}
         >
           {isAdmin
-            ? "Connectez-vous pour gérer la plateforme Mboa Arts."
+            ? "Connectez-vous pour gérer la plateforme Mboa Art."
             : "Gérez vos œuvres, vos demandes et votre profil."}
         </p>
       </div>

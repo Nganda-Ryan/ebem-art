@@ -19,7 +19,7 @@ export function Footer() {
               {SITE.tagline}
             </p>
             <div className="font-mono text-xs text-white opacity-30">
-              © {SITE.copyrightYear} Mboa Arts. {SITE.location}.
+              © {SITE.copyrightYear} Mboa Art. {SITE.location}.
             </div>
           </div>
 

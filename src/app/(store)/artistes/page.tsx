@@ -7,7 +7,7 @@ import { getPublishedArtists } from "@/modules/artists";
 import { artistPortraitUrl } from "@/lib/media";
 import { COLORS } from "@/constants/colors";
 
-export const metadata = { title: "Artistes - Mboa Arts" };
+export const metadata = { title: "Artistes - Mboa Art" };
 export const dynamic = "force-dynamic";
 
 export default async function ArtistesPage() {

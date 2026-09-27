@@ -2,7 +2,7 @@ import type { Testimonial } from "@/types/landing";
 
 export const MOCK_TESTIMONIALS: Testimonial[] = [
   {
-    text: "J'ai découvert Mboa Arts par hasard, et j'y suis revenu chaque semaine depuis. La sculpture de Élise trône maintenant dans mon salon à Paris - une présence magnétique.",
+    text: "J'ai découvert Mboa Art par hasard, et j'y suis revenu chaque semaine depuis. La sculpture de Élise trône maintenant dans mon salon à Paris - une présence magnétique.",
     author: "Jean-Pierre Essomba",
     role: "Collectionneur, Paris",
     acquired: "Mémoire Bamiléké No.2",

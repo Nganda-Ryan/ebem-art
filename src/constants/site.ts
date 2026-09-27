@@ -1,5 +1,5 @@
 export const SITE = {
-  name: "MBOA ARTS",
+  name: "MBOA Art",
   shortName: "M",
   tagline:
     "La première plateforme dédiée aux jeunes artistes plastiques camerounais. Découverte, acquisition, soutien.",

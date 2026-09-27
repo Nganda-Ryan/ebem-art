@@ -17,7 +17,7 @@ export const HERO = {
     },
     {
       src: "/images/vase2.jpg",
-      alt: "Œuvre artisanale - collection Mboa Arts",
+      alt: "Œuvre artisanale - collection Mboa Art",
       position: "center center",
     },
   ] as const,
@@ -29,7 +29,7 @@ export const HERO = {
     "✦ YAOUNDÉ",
     "✦ GRAVURE",
     "✦ FOUMBAN",
-    "✦ ARTS TRADITIONNELS",
+    "✦ Art TRADITIONNELS",
   ] as const,
   artistCountTarget: 127,
   slideIntervalMs: 6000,
@@ -40,11 +40,11 @@ export const SECTION_LABELS = {
     eyebrow: "À PROPOS",
     promoter: {
       name: "Eric Bem",
-      role: "Fondateur · Mboa Arts",
-      location: "Douala, Cameroun",
+      role: "Fondateur · Mboa Art",
+      location: "Yaounde, Cameroun",
       /** Prefer a real portrait in production - stock faces weaken trust (NN/g). */
-      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&h=1100&fit=crop&auto=format",
-      alt: "Portrait d'Eric Bem, fondateur de Mboa Arts",
+      img: "/images/image.png",
+      alt: "Portrait d'Eric Bem, fondateur de Mboa Art",
     },
     /** Director’s note hook - belief before facts. */
     quote:
@@ -69,7 +69,7 @@ export const SECTION_LABELS = {
     promoEyebrow: "THÈME DU JOUR",
     promoHref: "#actualite",
     img: "/images/hero-gallery.jpg",
-    imgAlt: "Galerie d'art camerounaise - collection Mboa Arts",
+    imgAlt: "Galerie d'art camerounaise - collection Mboa Art",
   },
   news: {
     date: "11 SEPTEMBRE 2026",

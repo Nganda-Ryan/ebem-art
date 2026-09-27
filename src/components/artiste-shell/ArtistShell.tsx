@@ -84,7 +84,7 @@ function BrandBlock({ onNavigate }: { onNavigate?: () => void }) {
         className="mt-1 block font-serif text-lg"
         style={{ color: COLORS.ink }}
       >
-        Mboa Arts
+        Mboa Art
       </span>
     </Link>
   );
@@ -192,7 +192,7 @@ export function ArtistShell({ children }: { children: React.ReactNode }) {
               ESPACE ARTISTE
             </span>
             <span className="font-serif text-sm" style={{ color: COLORS.ink }}>
-              Mboa Arts
+              Mboa Art
             </span>
           </div>
         </header>

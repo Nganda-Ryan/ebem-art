@@ -252,7 +252,7 @@ export function ArtistProfileForm({ artist }: ArtistProfileFormProps) {
                 defaultValue={artist.bio ?? ""}
                 className="w-full px-4 py-3 text-sm outline-none"
                 style={{ ...INPUT_STYLE, fontFamily: "var(--sans)" }}
-                placeholder="Ex: Formée à l'École des Beaux-Arts de Yaoundé…"
+                placeholder="Ex: Formée à l'École des Beaux-Art de Yaoundé…"
               />
             </FieldGroup>
           </div>

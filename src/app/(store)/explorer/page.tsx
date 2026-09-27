@@ -15,9 +15,9 @@ import {
 } from "@/modules/explorer";
 
 export const metadata = {
-  title: "Explorer - Mboa Arts",
+  title: "Explorer - Mboa Art",
   description:
-    "Explorez les œuvres Mboa Arts. Recherchez, filtrez par labels, paginez côté serveur.",
+    "Explorez les œuvres Mboa Art. Recherchez, filtrez par labels, paginez côté serveur.",
 };
 
 export const dynamic = "force-dynamic";

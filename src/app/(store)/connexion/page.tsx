@@ -8,9 +8,9 @@ import { getSession } from "@/lib/auth";
 import { getArtistForUser } from "@/modules/artists";
 
 export const metadata = {
-  title: "Connexion - Mboa Arts",
+  title: "Connexion - Mboa Art",
   description:
-    "Connectez-vous à votre espace artiste ou administrateur Mboa Arts.",
+    "Connectez-vous à votre espace artiste ou administrateur Mboa Art.",
 };
 
 type Props = {
@@ -90,7 +90,7 @@ export default async function ConnexionPage({ searchParams }: Props) {
         <div className="relative hidden min-h-[42vh] overflow-hidden lg:block lg:min-h-0">
           <Image
             src="/images/hero-gallery.jpg"
-            alt="Galerie Mboa Arts"
+            alt="Galerie Mboa Art"
             fill
             priority
             className="object-cover"
@@ -108,7 +108,7 @@ export default async function ConnexionPage({ searchParams }: Props) {
               className="font-serif text-3xl tracking-tight text-white xl:text-4xl"
               style={{ fontFamily: "var(--serif)" }}
             >
-              Mboa Arts
+              Mboa Art
             </p>
             <div className="max-w-md">
               <p className="font-serif text-3xl leading-tight text-white xl:text-4xl">

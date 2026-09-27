@@ -2,7 +2,7 @@ import Link from "next/link";
 import { COLORS } from "@/constants/colors";
 
 export const metadata = {
-  title: "Demande envoyée - Mboa Arts",
+  title: "Demande envoyée - Mboa Art",
 };
 
 export default function InscriptionMerciPage() {

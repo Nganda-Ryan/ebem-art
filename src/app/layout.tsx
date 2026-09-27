@@ -23,7 +23,7 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: "Mboa Arts - L'âme créatrice du Cameroun",
+  title: "Mboa Art - L'âme créatrice du Cameroun",
   description:
     "Découvrez, collectionnez et soutenez les jeunes artistes plastiques camerounais. Sculpture, peinture, ateliers.",
 };

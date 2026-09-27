@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liliane TUEGUEM - Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7E5E3;
+    --stat-bg:#e7ddce;
+    --ink:#241f1a;
+    --ink-soft:#5f584f;
+    --olive:#6b6b3a;
+    --olive-dark:#5c5c30;
+    --line:#d0c6b4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:0 48px;}
+  a{color:inherit;text-decoration:none;}
+  a:visited,a:active,a:hover,a:focus{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;padding-top:48px;}
+  .eyebrow-row{display:flex;align-items:center;gap:22px;margin-bottom:12px;}
+  .eyebrow{
+    font-size:12px;letter-spacing:0.3em;font-weight:500;
+    color:var(--ink);white-space:nowrap;
+  }
+  .eyebrow-line{flex:1;height:1px;background:var(--ink);opacity:0.65;}
+
+  .hero-grid{position:relative;min-height:600px;}
+  h1.title{
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:148px;
+    line-height:0.84;
+    letter-spacing:-0.015em;
+    margin:0;
+    color:var(--ink);
+    position:relative;z-index:0;
+  }
+  .hero-photo{
+    position:absolute;top:-2px;right:-40px;width:450px;
+    z-index:2;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom, #000 58%, transparent 100%);
+    mask-image:linear-gradient(to bottom, #000 58%, transparent 100%);
+  }
+  .hero-photo img{
+    width:100%;height:auto;
+    object-fit:contain;object-position:top center;
+    mix-blend-mode:multiply;
+  }
+  .seal{
+    position:absolute;top:70px;right:10px;
+    width:96px;height:96px;z-index:3;
+    background:#431C2D;border-radius:50%;
+  }
+  .seal svg{width:100%;height:100%;}
+
+  .hero-copy{
+    max-width:400px;position:relative;z-index:2;margin-top:10px;
+  }
+  .hero-copy h2{
+    font-family:'Playfair Display',serif;
+    font-weight:500;font-size:31px;line-height:1.26;
+    margin:0 0 20px 0;color:var(--ink);
+  }
+  .hero-copy h2 em{
+    font-style:italic;font-weight:500;color:#B08B5C;
+  }
+  .hero-copy h2 .u{
+    font-style:italic;
+    text-decoration:underline;text-decoration-thickness:1.2px;
+    text-underline-offset:5px;
+  }
+  .hero-copy h2 .u-europe{
+    color:#9CA48D;text-decoration-color:#9CA48D;
+  }
+  .hero-copy h2 .u-africa{
+    color:#C29F81;text-decoration-color:#C29F81;
+  }
+  .rule-short{width:36px;height:2px;background:var(--ink);margin:0 0 18px 0;}
+  .hero-copy p{
+    font-size:14.5px;line-height:1.72;color:var(--ink-soft);
+    margin:0;max-width:360px;
+  }
+  .hero-actions{
+    display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;
+  }
+  .hero-btn{
+    background:#431C2D;border:1px solid #431C2D;border-radius:24px;padding:12px 22px;
+    font-size:11px;letter-spacing:0.12em;font-weight:600;color:#F7F3E8;
+    display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
+  }
+  .hero-btn:link,
+  .hero-btn:visited,
+  .hero-btn:hover,
+  .hero-btn:active,
+  .hero-btn:focus{color:#F7F3E8;outline:none;}
+
+  .location-tag{
+    position:absolute;right:4px;bottom:118px;
+    display:flex;align-items:center;justify-content:flex-end;gap:8px;
+    font-size:11.5px;letter-spacing:0.16em;
+    font-weight:500;color:var(--ink);z-index:3;line-height:1;white-space:nowrap;
+  }
+  .location-pin{display:flex;align-items:center;flex-shrink:0;}
+
+  /* ===== STATS ===== */
+  .stats-bar{
+    margin-top:16px;background:#431C2D;border-radius:4px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:34px 52px;position:relative;z-index:4;
+    color:#F7F3E8;
+  }
+  .stat{display:flex;align-items:center;gap:16px;flex:1;}
+  .stat-icon{
+    width:36px;height:36px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .stat-icon svg{width:28px;height:28px;stroke:#F7F3E8;fill:none;stroke-width:1.35;}
+  .stat-num{
+    font-family:'Playfair Display',serif;font-size:26px;font-weight:600;
+    line-height:1;margin-bottom:3px;
+  }
+  .stat-label{
+    font-size:10.5px;letter-spacing:0.12em;color:#F7F3E8;
+    font-weight:500;line-height:1.35;opacity:0.85;
+  }
+  .stat-divider{
+    width:1px;height:48px;background:rgba(247,243,232,0.25);
+    margin:0 20px;flex-shrink:0;
+  }
+
+  /* ===== WORKS + SERVICES ===== */
+  .content-row{
+    margin-top:64px;display:grid;
+    grid-template-columns:1fr 236px;gap:48px;align-items:start;
+  }
+  .section-head{
+    display:flex;align-items:center;gap:18px;margin-bottom:26px;
+  }
+  .section-head h3{
+    font-size:13px;letter-spacing:0.2em;font-weight:600;
+    color:#431C2D;margin:0;white-space:nowrap;
+  }
+  .head-line{flex:1;height:1px;background:var(--line);}
+  .view-all{
+    font-size:11px;letter-spacing:0.1em;font-weight:500;color:var(--ink);
+    white-space:nowrap;display:flex;align-items:center;gap:8px;
+  }
+  .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .work-card{display:flex;flex-direction:column;}
+  .work-thumb{
+    aspect-ratio:3/3.6;border-radius:3px;overflow:hidden;
+    margin-bottom:14px;background:#ddd;
+  }
+  .work-mock{width:100%;height:100%;overflow:hidden;}
+  .work-card h4{
+    font-size:12px;font-weight:600;letter-spacing:0.06em;
+    margin:0 0 4px 0;color:var(--ink);
+  }
+  .work-card p{font-size:12px;color:var(--ink-soft);margin:0;line-height:1.4;}
+
+  .mock-jba{
+    background:#E8D5D2;padding:22px 18px;
+    display:flex;flex-direction:column;height:100%;
+  }
+  .mock-jba .brand{
+    font-family:'Playfair Display',serif;font-size:22px;font-weight:600;
+    line-height:1.1;color:#2c261c;
+  }
+  .mock-jba .brand i{font-style:italic;font-weight:500;}
+  .mock-jba .sub{
+    font-size:12px;letter-spacing:0.02em;margin:10px 0 0 0;padding-left:16px;
+    color:#6a635a;line-height:1.55;list-style:disc;
+  }
+  .mock-jba .sub li{margin:0 0 2px 0;}
+  .mock-jba .shot{margin-top:14px;border-radius:2px;overflow:hidden;flex:1;min-height:0;}
+  .mock-jba .shot img{width:100%;height:100%;object-fit:cover;}
+
+  .mock-studio{
+    background:#121110;padding:20px 16px;
+    display:flex;flex-direction:column;height:100%;color:#f5f1ea;
+  }
+  .mock-studio .brand{
+    font-family:'Playfair Display',serif;font-size:24px;font-weight:700;
+    line-height:1;color:#f5f1ea;
+  }
+  .mock-studio .bar{margin-top:12px;height:4px;width:40%;background:var(--olive);flex-shrink:0;}
+  .mock-studio p{color:#e8e2d4;}
+  .mock-studio .sub{
+    font-size:12px;letter-spacing:0.02em;margin:12px 0 0 0;padding-left:16px;
+    color:#cfc8b8;line-height:1.55;list-style:disc;
+  }
+  .mock-studio .sub li{margin:0 0 2px 0;color:#cfc8b8;}
+  .mock-studio .shot{margin-top:14px;border-radius:2px;overflow:hidden;flex:1;min-height:0;}
+  .mock-studio .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .mock-studio .shot.afia-shot img{
+    object-fit:contain;object-position:center center;
+  }
+
+  .mock-aurora{
+    background:#E8D5D2;padding:18px 14px;
+    display:flex;flex-direction:column;height:100%;
+  }
+  .mock-aurora .brand{
+    font-family:'Playfair Display',serif;font-size:15px;font-weight:600;
+    letter-spacing:0.12em;text-align:left;color:#1f1b16;
+  }
+  .mock-aurora .sub{
+    font-size:12px;letter-spacing:0.02em;margin:10px 0 0 0;padding-left:16px;
+    color:#6a635a;line-height:1.55;list-style:disc;
+  }
+  .mock-aurora .sub li{margin:0 0 2px 0;}
+  .mock-aurora .shot{margin-top:14px;border-radius:2px;overflow:hidden;flex:1;min-height:0;background:#1f1b16;}
+  .mock-aurora .shot img{width:100%;height:100%;object-fit:cover;}
+
+  .services{border-left:1px solid var(--line);padding-left:32px;padding-top:2px;}
+  .services .section-head{margin-bottom:28px;}
+  .service-item{display:flex;gap:14px;margin-bottom:28px;}
+  .service-icon{
+    width:32px;height:32px;border-radius:50%;background:#431C2D;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .service-icon svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:1.5;}
+  .service-text h5{font-size:12px;font-weight:600;letter-spacing:0.06em;margin:1px 0 6px 0;}
+  .service-text p{font-size:12px;line-height:1.55;color:var(--ink-soft);margin:0;}
+  .and-more{
+    display:flex;align-items:center;gap:10px;font-size:11px;
+    letter-spacing:0.1em;font-weight:500;color:var(--ink);margin-top:4px;
+  }
+  .and-more .arrow-line{flex:1;max-width:52px;height:1px;background:var(--ink);}
+
+  /* ===== PROCESS ===== */
+  .process{margin-top:72px;}
+  .process-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .process-step{position:relative;padding-right:28px;}
+  .step-num{
+    font-family:'Playfair Display',serif;font-size:36px;font-weight:500;
+    color:var(--ink);margin-bottom:16px;line-height:1;
+  }
+  .step-arrow{
+    position:absolute;top:16px;right:4px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);opacity:0.7;line-height:0;
+  }
+  .step-arrow svg{display:block;width:28px;height:10px;}
+  .process-step:last-child .step-arrow{display:none;}
+  .process-step:last-child{padding-right:0;}
+  .step-title{font-size:11.5px;letter-spacing:0.1em;font-weight:600;margin:0 0 8px 0;color:var(--ink);}
+  .step-desc{font-size:12px;line-height:1.55;color:var(--ink-soft);margin:0;max-width:148px;}
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials{margin-top:72px;}
+  .testi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .testi-card{
+    background:#E8D5D2;border-radius:4px;padding:26px 24px 22px;
+    display:flex;flex-direction:column;height:100%;
+  }
+  .quote-mark{
+    font-family:'Playfair Display',serif;font-size:42px;color:#431C2D;
+    line-height:0.7;margin-bottom:12px;font-weight:600;
+  }
+  .testi-card p.quote{font-size:13px;line-height:1.65;color:var(--ink);margin:0 0 22px 0;flex:1;}
+  .testi-person{display:flex;align-items:center;gap:12px;margin-top:auto;}
+  .avatar-wrap{
+    width:40px;height:40px;min-width:40px;border-radius:50%;
+    overflow:hidden;flex-shrink:0;display:block;
+  }
+  .avatar-wrap .avatar,
+  .avatar{
+    width:100% !important;height:100% !important;
+    min-width:0;min-height:0;max-width:none;max-height:none;
+    border-radius:50% !important;
+    object-fit:cover !important;object-position:center;
+    display:block;aspect-ratio:1/1;
+  }
+  .testi-person h6{font-size:11px;letter-spacing:0.08em;font-weight:600;margin:0 0 3px 0;}
+  .testi-person span{font-size:11px;color:var(--ink-soft);line-height:1.35;display:block;}
+
+  /* ===== CTA ===== */
+  .cta-banner{
+    margin-top:56px;background:#431C2D;border-radius:4px;
+    padding:32px 40px;display:flex;align-items:center;
+    justify-content:space-between;color:#f5f1ea;gap:28px;
+  }
+  .cta-left{display:flex;align-items:center;gap:18px;flex:1.2;}
+  .cta-icon{
+    width:36px;height:36px;border:1px solid rgba(245,241,234,0.55);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .cta-icon svg{width:15px;height:15px;stroke:#f5f1ea;fill:none;stroke-width:1.5;}
+  .cta-left h4{
+    font-family:'Playfair Display',serif;font-weight:500;font-size:24px;
+    margin:0;line-height:1.25;
+  }
+  .cta-left h4 em{font-style:italic;color:#ddd6c4;}
+  .cta-mid{font-size:12.5px;line-height:1.5;color:#e2dccf;max-width:190px;flex:0.9;}
+  .cta-btn{
+    border:1px solid #f5f1ea;border-radius:24px;padding:12px 22px;
+    font-size:11px;letter-spacing:0.12em;font-weight:600;color:#f5f1ea;
+    display:flex;align-items:center;gap:10px;white-space:nowrap;
+  }
+  .cta-btn:link,
+  .cta-btn:visited,
+  .cta-btn:hover,
+  .cta-btn:active,
+  .cta-btn:focus{color:#f5f1ea;outline:none;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    margin-top:36px;padding:28px 0 48px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .foot-brand{display:flex;align-items:center;gap:14px;}
+  .monogram{
+    width:40px;height:40px;border:1px solid var(--ink);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-size:15px;font-weight:600;
+  }
+  .foot-brand-text h6{font-size:12px;letter-spacing:0.08em;font-weight:600;margin:0 0 4px 0;}
+  .foot-brand-text span{font-size:10px;letter-spacing:0.1em;color:var(--ink-soft);}
+  .foot-contact{display:flex;flex-direction:column;gap:9px;font-size:12px;color:var(--ink-soft);}
+  .foot-contact div{display:flex;align-items:center;gap:9px;}
+  .foot-contact svg{width:13px;height:13px;stroke:var(--ink-soft);fill:none;stroke-width:1.4;flex-shrink:0;}
+  .foot-connect{text-align:right;}
+  .foot-connect p{font-size:11px;letter-spacing:0.12em;font-weight:500;color:var(--ink);margin:0 0 12px 0;}
+  .social-row{display:flex;gap:10px;justify-content:flex-end;}
+  .social-icon{
+    width:30px;height:30px;border:1px solid var(--ink);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .social-icon svg{width:13px;height:13px;stroke:var(--ink);fill:none;stroke-width:1.4;}
+  .social-icon.filled svg{fill:var(--ink);stroke:none;}
+
+  @media (max-width:1250px){
+    .works-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:920px){
+    .wrap{padding:0 28px;}
+    h1.title{font-size:88px;}
+    .hero-photo{width:340px;right:-12px;}
+    .seal{width:72px;height:72px;top:50px;right:8px;}
+    .hero-copy{max-width:100%;margin-top:320px;}
+    .hero-copy p{max-width:100%;}
+    .location-tag{display:none;}
+    .hero-grid{min-height:auto;}
+    .eyebrow-row{flex-wrap:wrap;gap:10px;}
+    .eyebrow{
+      white-space:normal;letter-spacing:0.14em;font-size:11px;
+      max-width:100%;line-height:1.45;
+    }
+    .eyebrow-line{min-width:40px;}
+    .stats-bar{
+      flex-direction:row;flex-wrap:nowrap;gap:0;
+      padding:20px 14px;align-items:center;justify-content:space-between;
+    }
+    .stat{gap:8px;justify-content:center;min-width:0;}
+    .stat-icon{width:24px;height:24px;}
+    .stat-icon svg{width:20px;height:20px;}
+    .stat-num{font-size:18px;}
+    .stat-label{font-size:8px;letter-spacing:0.06em;}
+    .stat-divider{display:block;height:36px;margin:0 8px;}
+    .content-row{grid-template-columns:1fr;gap:40px;}
+    .works-grid{grid-template-columns:1fr 1fr;}
+    .services{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:32px;}
+    .process-row{grid-template-columns:1fr 1fr;row-gap:28px;}
+    .step-arrow{display:none;}
+    .testi-row{grid-template-columns:1fr;}
+    .cta-banner{flex-direction:column;align-items:flex-start;gap:18px;padding:24px 20px;}
+    .cta-left{gap:12px;width:100%;}
+    .cta-left h4{font-size:18px;line-height:1.3;}
+    .cta-mid{max-width:none;}
+    .cta-btn{padding:10px 18px;font-size:10px;}
+    footer{flex-direction:column;gap:24px;align-items:flex-start;}
+    .foot-connect{text-align:left;}
+    .social-row{justify-content:flex-start;}
+    .foot-location{display:none;}
+  }
+  @media (max-width:540px){
+    h1.title{font-size:56px;}
+    .hero-photo{width:270px;}
+    .hero-copy{margin-top:250px;}
+    .hero-copy h2{font-size:24px;}
+    .works-grid{grid-template-columns:1fr;}
+    .process-row{grid-template-columns:1fr 1fr;}
+    .cta-left h4{font-size:16px;}
+    .cta-banner{padding:22px 16px;gap:14px;}
+    .mock-studio .shot.afia-shot img{
+      object-fit:contain;object-position:center 35%;
+      transform:translateY(-8%);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow-row">
+      <span class="eyebrow">TECH ENTREPRENEUR, AI &amp; DIGITAL TRANFORMATION</span>
+      <span class="eyebrow-line"></span>
+    </div>
+
+    <div class="hero-grid">
+      <h1 class="title">Liliane TUEGUEM</h1>
+
+      <div class="hero-photo">
+        <img src="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/pink_liliane.png" alt="Portrait">
+      </div>
+
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="47" fill="none" stroke="#F7F3E8" stroke-width="0.9"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#F7F3E8" stroke-width="0.5" opacity="0.45"/>
+          <defs>
+            <path id="sealTop" d="M 50,50 m -33,0 a 33,33 0 1,1 66,0 a 33,33 0 1,1 -66,0"/>
+          </defs>
+          <text fill="#F7F3E8" font-size="6.2" letter-spacing="2.2" font-family="Jost,sans-serif" font-weight="500">
+            <textPath href="#sealTop" startOffset="8%">THOUGHTFUL DESIGN · MEANINGFUL IMPACT ·</textPath>
+          </text>
+          <text x="43" y="54" font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#F7F3E8" text-anchor="middle">L</text>
+          <text x="58" y="54" font-family="Playfair Display,serif" font-size="20" font-weight="700" fill="#F7F3E8" text-anchor="middle">T</text>
+        </svg>
+      </div>
+
+      <div class="hero-copy">
+        <h2>Transforming organizations and <em>creating</em> opportunities between <span class="u u-europe">Europe</span> and <span class="u u-africa">Africa.</span></h2>
+        <div class="rule-short"></div>
+        <p>Engineer by training and entrepreneur by conviction, I have spent more than 15 years working at the intersection of technology, business transformation and leadership across Europe and Africa</p>
+        <div class="hero-actions">
+          <a class="hero-btn" href="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/CV_LT_BOARD.pdf" target="_blank" rel="noopener">DOWNLOAD CV <span>→</span></a>
+          <a class="hero-btn" href="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/liliane-tueguem.vcf">GET IN TOUCH <span>→</span></a>
+        </div>
+      </div>
+
+      <div class="location-tag">
+        MILAN, ITALY
+        <div class="location-pin">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#241f1a" stroke-width="1.6"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.4"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div>
+          <div class="stat-num">50+</div>
+          <div class="stat-label">PROJECTS<br>COMPLETED</div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg></div>
+        <div>
+          <div class="stat-num">15+</div>
+          <div class="stat-label">YEARS OF<br>EXPERIENCE</div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-10-9.3C.3 8.4 2.1 4.7 6 4.4c2.1-.1 3.7 1 4.9 2.6l1.1 1.4 1.1-1.4C14.3 5.4 15.9 4.3 18 4.4c3.9.3 5.7 4 4 7.3-2.5 4.6-10 9.3-10 9.3z"/></svg></div>
+        <div>
+          <div class="stat-num">30+</div>
+          <div class="stat-label">HAPPY<br>CLIENTS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-row">
+    <div class="works">
+      <div class="section-head">
+        <h3>WHAT I DO</h3>
+        <span class="head-line"></span>
+        <!-- <a class="view-all" href="#">VIEW ALL PROJECTS <svg width="14" height="10" viewBox="0 0 24 24" fill="none" stroke="#241f1a" stroke-width="2"><path d="M2 12h18M14 5l7 7-7 7"/></svg></a> -->
+      </div>
+
+      <div class="works-grid">
+        <article class="work-card">
+          <div class="work-thumb">
+            <div class="work-mock mock-jba">
+              <div class="brand">Technology. Business.<br><i>Governance. Impact.</i></div>
+              <!-- <div class="sub">SPA · RETREAT · CARE</div> -->
+              <ul class="sub">
+                <li>Artificial Intelligence &amp; Automation</li>
+                <li>Digital Transformation</li>
+                <li>Technology &amp; Data</li>
+                <li>Governance &amp; Risk</li>
+                <li>Europe × Africa</li>
+              </ul>
+              <div class="shot">
+                <img src="https://img.magnific.com/free-photo/team-ambitious-female-leaders-make-decisions-isolated-copy-space_482257-120005.jpg?w=740&q=80" alt="Technology Business">
+              </div>
+            </div>
+          </div>
+          <h4>Technology. Business.</h4>
+          <p>Technology. Business. Governance. Impact.</p>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <div class="work-mock mock-studio">
+              <div class="brand">JBA<br>DIGITAL</div>
+              <div class="bar"></div>
+              <ul class="sub">
+                <li>Artificial Intelligence &amp; AI Agents</li>
+                <li>Digital Transformation</li>
+                <li>CRM &amp; Business Platforms</li>
+                <li>Cybersecurity &amp; Technology Governance</li>
+                <li>Cloud &amp; DevOps</li>
+              </ul>
+              <div class="shot">
+                <img src="https://jba-digital.com/wp-content/uploads/2026/06/ChatGPT-Image-Jun-25-2026-11_17_50-AM-1.png" alt="JBA Digital">
+              </div>
+            </div>
+          </div>
+          <h4>JBA DIGITAL</h4>
+          <p>Journey beyond Algorithms</p>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <div class="work-mock mock-aurora">
+              <div class="brand">BOARD &amp; GOVERNANCE</div>
+              <ul class="sub">
+                <li>Technology expertise at board level</li>
+                <li>AI Governance</li>
+                <li>Corporate Governance</li>
+                <li>Enterprise Risk Management</li>
+                <li>Cybersecurity</li>
+              </ul>
+              <div class="shot">
+                <img src="https://img.magnific.com/free-photo/woman-wearing-suit-leads-visionary-business-pitch-event-showing-performance-metrics-screen_482257-136442.jpg?w=740&q=80" alt="Board & Governance">
+              </div>
+            </div>
+          </div>
+          <h4>BOARD & GOVERNANCE</h4>
+          <p>Technology expertise at board level.</p>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <div class="work-mock mock-jba">
+              <div class="brand">SHECODE<br><i>Oser Le Digital</i></div>
+              <!-- <div class="sub">SPA · RETREAT · CARE</div> -->
+              <ul class="sub">
+                <li>260+ women trained</li>
+                <li>6 cities</li>
+                <li>30 mentors</li>
+                <li>600+ community members</li>
+                <li>Programs, mentoring & partnerships</li>
+              </ul>
+              <div class="shot">
+                <img src="https://she-code.org/wp-content/uploads/2026/09/232739cc7f7a0369eb60c8c2ea3399249563ad2d.webp" alt="SHECODE">
+              </div>
+            </div>
+          </div>
+          <h4>SHECODE</h4>
+          <p>Women of tomorrow</p>
+        </article>
+
+        <article class="work-card">
+          <div class="work-thumb">
+            <div class="work-mock mock-studio">
+              <div class="brand">AFIA<br>WOMEN IN AI</div>
+              <div class="bar"></div>
+              <p>
+                AFIA is designed to help African women move beyond simply using AI tools and develop the skills required to understand, build and deploy AI solutions.
+The program covers areas ranging from AI productivity to LLMs, RAG, AI agents, data and MLOps.
+
+              </p>
+              <div class="shot afia-shot">
+                <img src="https://she-code.org/wp-content/uploads/2026/09/prog22.webp" alt="AFIA Women in AI">
+              </div>
+            </div>
+          </div>
+          <h4>AFIA</h4>
+          <p>Women in AI</p>
+        </article>
+      </div>
+    </div>
+
+    <aside class="services">
+      <div class="section-head"><h3>SERVICES</h3></div>
+
+      <div class="service-item">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="service-text">
+          <h5>Artificial Intelligence & Automation</h5>
+          <p>I work with companies, institutions and leaders navigating transformation in rapidly evolving environments.</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+        <div class="service-text">
+          <h5>Digital Transformation</h5>
+          <p>Turning AI into practical business applications and measurable value.</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+        <div class="service-text">
+          <h5>Technology & Data</h5>
+          <p>Helping organizations modernize processes, platforms and operating models.</p>
+        </div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="service-text">
+          <h5>Governance & Risk</h5>
+          <p>Building digital solutions and leveraging data to improve decision-making and performance.</p>
+        </div>
+      </div>
+
+      <!-- <a class="and-more" href="#">AND MORE <span class="arrow-line"></span> <span>→</span></a> -->
+    </aside>
+  </section>
+
+  <section class="process">
+    <div class="section-head">
+      <h3>MY PROCESS</h3>
+      <span class="head-line"></span>
+    </div>
+    <div class="process-row">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 28 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h24M20 1l6 4-6 4"/></svg></span>
+        <div class="step-title">DISCOVER</div>
+        <p class="step-desc">Understand your goals, audience and vision.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 28 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h24M20 1l6 4-6 4"/></svg></span>
+        <div class="step-title">PLAN</div>
+        <p class="step-desc">Research, strategy and structure foundation.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 28 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h24M20 1l6 4-6 4"/></svg></span>
+        <div class="step-title">DESIGN</div>
+        <p class="step-desc">Create clean, modern and purposeful design.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <span class="step-arrow" aria-hidden="true"><svg viewBox="0 0 28 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h24M20 1l6 4-6 4"/></svg></span>
+        <div class="step-title">DEVELOP</div>
+        <p class="step-desc">Build fast, responsive and scalable websites.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">05</div>
+        <div class="step-title">DELIVER</div>
+        <p class="step-desc">Test, refine and launch successfully.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="section-head">
+      <h3>KIND WORDS</h3>
+      <span class="head-line"></span>
+    </div>
+    <div class="testi-row">
+      <div class="testi-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">Félicitations ma chère Liliane Tueguem pour ce concept nouveau et la dynamique que tu apporte à la formation et la détection des talents de la jeune femme au Cameroun dans le numérique. Nous avons été très admiratifs lors de cette session dédiée à la remise des parchemins.</p>
+        <div class="testi-person">
+          <span class="avatar-wrap"><img class="avatar" src="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/diaby.png" alt="Ousmane Diaby"></span>
+          <div><h6>OUSMANE DIABY</h6><span>Ph.D</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">I smiled all through while watching this.. It feels good to know there are so many communities out there reaching out specifically to women, helping them to catch their own fish. Thumbs up to She Code Team</p>
+        <div class="testi-person">
+          <span class="avatar-wrap"><img class="avatar" src="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/joycer.jpg" alt="Joyce Mekeukiomoui"></span>
+          <div><h6>JOYCE MEKEUKIOMOUI</h6><span>Functional Lead | Fintech &amp; Public Sector</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">Complimenti Liliane! Bravissima</p>
+        <div class="testi-person">
+          <span class="avatar-wrap"><img class="avatar" src="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/Pietro%20Sebastiani.jpg" alt="Pietro Sebastiani"></span>
+          <div><h6>PIETRO SEBASTIANI</h6><span>Ambassador (ret.) · Director &amp; Founder, LUMSA University Africa Center</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner" id="get-in-touch">
+    <div class="cta-left">
+      <div class="cta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 6 10-6"/></svg></div>
+      <h4>Let's&nbsp;build&nbsp;something <em>meaningful</em>&nbsp;together.</h4>
+    </div>
+    <!-- <div class="cta-mid">AFRICA X EUROPE.</div> -->
+    <a class="cta-btn" href="https://pub-72b54eeac58b4acea61729e031dc663b.r2.dev/liliane-tueguem.vcf">GET IN TOUCH <span>→</span></a>
+  </section>
+
+  <footer>
+    <div class="foot-brand">
+      <div class="monogram">LT</div>
+      <div class="foot-brand-text">
+        <h6>LILIANE TUEGUEM</h6>
+        <span>TECH ENTREPRENEUR, AI &amp; DIGITAL TRANFORMATION</span>
+      </div>
+    </div>
+    <div class="foot-contact">
+      <div><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>liliane.tueguem@she-code.org</div>
+      <div><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+39 327 756 5135</div>
+      <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><a href="https://jba-digital.com/liliane-tueguem/" target="_blank" rel="noopener">jba-digital.com</a></div>
+      <div class="foot-location"><svg viewBox="0 0 24 24"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.4"/></svg> MILAN, ITALY</div>
+    </div>
+    <div class="foot-connect">
+      <p>LET'S CONNECT</p>
+      <div class="social-row">
+        <a class="social-icon" href="https://www.linkedin.com/in/liliane-tueguem-bba1a586/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13c0-2 2-4 5-4s5 2 5 6v6"/></svg></a>
+        <a class="social-icon" href="https://jba-digital.com/liliane-tueguem/" target="_blank" rel="noopener" aria-label="Website"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
