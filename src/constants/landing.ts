@@ -39,12 +39,12 @@ export const SECTION_LABELS = {
   aPropos: {
     eyebrow: "À PROPOS",
     promoter: {
-      name: "Eric Bem",
+      name: "MALA MESSI Marielle Alexandra",
       role: "Fondateur · Mboa Art",
       location: "Yaounde, Cameroun",
       /** Prefer a real portrait in production - stock faces weaken trust (NN/g). */
       img: "/images/image.png",
-      alt: "Portrait d'Eric Bem, fondateur de Mboa Art",
+      alt: "Portrait de MALA MESSI Marielle Alexandra, fondateur de Mboa Art",
     },
     /** Director’s note hook - belief before facts. */
     quote:
