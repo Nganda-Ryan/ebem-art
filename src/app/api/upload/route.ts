@@ -11,7 +11,7 @@ const ALLOWED_TYPES = [
 
 const MAX_SIZE_BYTES = 8 * 1024 * 1024; // 8 Mo
 
-const ALLOWED_FOLDERS = new Set(["profile", "artworks"]);
+const ALLOWED_FOLDERS = new Set(["profile", "artworks", "articles"]);
 
 function isCloudinaryConfigured() {
   return Boolean(
@@ -25,7 +25,7 @@ export const runtime = "nodejs";
 
 /**
  * POST /api/upload
- * FormData: { file: File, folder?: "profile" | "artworks" }
+ * FormData: { file: File, folder?: "profile" | "artworks" | "articles" }
  * Returns: { url: string }
  */
 export async function POST(request: Request) {

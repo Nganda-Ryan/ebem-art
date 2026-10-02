@@ -19,7 +19,7 @@ export type ImageUploadHandle = {
 type ImageUploadProps = {
   /** Field name (used by forms that still read hidden inputs after upload). */
   name: string;
-  folder?: "profile" | "artworks";
+  folder?: "profile" | "artworks" | "articles";
   hint?: string;
   multiple?: boolean;
   max?: number;
@@ -43,7 +43,7 @@ type Item = LocalItem | RemoteItem;
 
 async function uploadFile(
   file: File,
-  folder: "profile" | "artworks"
+  folder: "profile" | "artworks" | "articles"
 ): Promise<string> {
   const fd = new FormData();
   fd.set("file", file);

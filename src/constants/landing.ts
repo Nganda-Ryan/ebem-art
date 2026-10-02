@@ -74,10 +74,10 @@ export const SECTION_LABELS = {
   news: {
     date: "11 SEPTEMBRE 2026",
     title: "Actualités",
-    subtitle: "Mis à jour chaque matin",
-    relatedLabel: "Aussi dans le thème",
+    subtitle: "Toutes les actualités",
+    relatedLabel: "À lire aussi",
     readLabel: "Lire l'article",
-    artistLabel: "Auteur de l'œuvre",
+    artistLabel: "Auteur",
   },
   explorer: {
     code: "SECTION 02",

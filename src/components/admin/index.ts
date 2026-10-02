@@ -11,6 +11,8 @@ export {
 export { ArtistFormDrawer } from "./ArtistFormDrawer";
 export { ArtistRowActions, NewArtistButton } from "./ArtistRowActions";
 export { ArtistDetailActions } from "./ArtistDetailActions";
+export { ArticleFormDrawer } from "./ArticleFormDrawer";
+export { ArticleRowActions, NewArticleButton } from "./ArticleRowActions";
 export { ArtworkFormDrawer } from "./ArtworkFormDrawer";
 export { ArtworkRowActions, NewArtworkButton } from "./ArtworkRowActions";
 export { ArtworkDetailActions } from "./ArtworkDetailActions";

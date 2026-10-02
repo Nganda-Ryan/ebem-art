@@ -10,6 +10,7 @@ const MANAGEMENT_ITEMS = [
   { href: "/admin/artistes", label: "Artistes" },
   { href: "/admin/oeuvres", label: "Œuvres" },
   { href: "/admin/commandes", label: "Commandes" },
+  { href: "/admin/articles", label: "Articles" },
 ] as const;
 
 const REQUEST_ITEMS = [
